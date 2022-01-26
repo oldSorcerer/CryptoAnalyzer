@@ -129,7 +129,6 @@ public class Choice {
         }
     }
 
-
     private static List<Map.Entry<Character, Integer>> fillMapValues(Map<Character, Integer> map, String path) throws IOException {
 
         StringBuilder stringBuilder = new StringBuilder();
@@ -156,10 +155,5 @@ public class Choice {
 
             return list;
         }
-
-
     }
-
-
-
 }
