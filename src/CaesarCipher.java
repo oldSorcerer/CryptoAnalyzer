@@ -1,6 +1,6 @@
 public class CaesarCipher {
 
-    public int maxSize = 36;
+    public int maxSize = 37;
 
     public String encrypt(String message, int key) {
 
@@ -10,7 +10,7 @@ public class CaesarCipher {
         String alphabetRuUpperCase = "АБВГДЕЁЖЗИЙКЛМНОПРСТУФХЦЧШЩЪЫЬЭЮЯАБВГДЕЁЖЗИЙКЛМНОПРСТУФХЦЧШЩЪЫЬЭЮЯ";
         String alphabetRuLowerCase = "абвгдеёжзийклмнопрстуфхцчшщъыьэюяабвгдеёжзийклмнопрстуфхцчшщъыьэюя";
 
-        String symbols = ".,\":-!? +-*/\\@#$%^&(){}[];'|`~=_—©«»'.,\":-!? +-*/\\@#$%^&(){}[];'|`~=_—©«»'";
+        String symbols = ".,\":-!? +-*/\\@#$%^&(){}[];'|`~=_©«»'—.,\":-!? +-*/\\@#$%^&(){}[];'|`~=_©«»'—";
         String digits = "01234567890123456789";
 
 
@@ -65,7 +65,8 @@ public class CaesarCipher {
         if (key > 0) {
             newAlphabetPos = (origAlphabetPos + key) % (alphabet.length() / 2);
         } else {
-            newAlphabetPos = (origAlphabetPos + (alphabet.length() / 2) + key) % alphabet.length();
+            int newKey = key % (alphabet.length() / 2);
+            newAlphabetPos = (origAlphabetPos + (alphabet.length() / 2) + newKey) % alphabet.length();
         }
         return newAlphabetPos;
     }
