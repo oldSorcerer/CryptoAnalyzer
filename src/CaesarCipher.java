@@ -10,7 +10,9 @@ public class CaesarCipher {
         String alphabetRuUpperCase = "АБВГДЕЁЖЗИЙКЛМНОПРСТУФХЦЧШЩЪЫЬЭЮЯАБВГДЕЁЖЗИЙКЛМНОПРСТУФХЦЧШЩЪЫЬЭЮЯ";
         String alphabetRuLowerCase = "абвгдеёжзийклмнопрстуфхцчшщъыьэюяабвгдеёжзийклмнопрстуфхцчшщъыьэюя";
 
-        String symbols = ".,\":-!? +-*/\\@#$%^&(){}[];'|`~=_—©«».,\":-!? +-*/\\@#$%^&(){}[];'|`~=_—©«»";
+        String symbols = ".,\":-!? +-*/\\@#$%^&(){}[];'|`~=_—©«»'.,\":-!? +-*/\\@#$%^&(){}[];'|`~=_—©«»'";
+        String digits = "01234567890123456789";
+
 
         StringBuilder result = new StringBuilder();
 
@@ -23,6 +25,7 @@ public class CaesarCipher {
             int origAlphabetPosRuLC = alphabetRuLowerCase.indexOf(aChar);
 
             int origSymbolPos = symbols.indexOf(aChar);
+            int origDigitsPos = digits.indexOf(aChar);
 
             int newAlphabetPos;
             char newCharacter = 0;
@@ -42,6 +45,9 @@ public class CaesarCipher {
             } else if (origSymbolPos >= 0) {
                 newAlphabetPos = newAlphabetPos(origSymbolPos, symbols, key);
                 newCharacter = symbols.charAt(newAlphabetPos);
+            } else if (origDigitsPos >= 0) {
+                newAlphabetPos = newAlphabetPos(origDigitsPos, digits, key);
+                newCharacter = digits.charAt(newAlphabetPos);
             }
 
             result.append(newCharacter);
