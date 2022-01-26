@@ -1,6 +1,4 @@
-import java.io.BufferedReader;
-import java.io.BufferedWriter;
-import java.io.IOException;
+import java.io.*;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.HashMap;
@@ -121,16 +119,7 @@ public class Choice {
             }
         }
 
-        System.out.println(enc.toString());
-
-
-
-
-
-
-
-
-
+        System.out.println(enc);
 
 
         System.out.println("Содержимое файла расшифровано методом статистического анализа.");
