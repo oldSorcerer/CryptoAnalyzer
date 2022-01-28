@@ -1,58 +1,34 @@
 public class CaesarCipher {
 
-    public int maxSize = 37;
+    public int maxSize = ALPHABET.length() / 2;
+
+    private static final String ALPHABET_PART_ONE = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZабвгдеёжзийклмнопрстуфхцчшщъыьэюяАБВГДЕЁЖЗИЙКЛМНОПРСТУФХЦЧШЩЪЫЬЭЮЯ .,!:;?%0123456789";
+    private static final String ALPHABET_PART_TWO = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZабвгдеёжзийклмнопрстуфхцчшщъыьэюяАБВГДЕЁЖЗИЙКЛМНОПРСТУФХЦЧШЩЪЫЬЭЮЯ .,!:;?%0123456789";
+    private static final String ALPHABET = ALPHABET_PART_ONE + ALPHABET_PART_TWO;
+    //String symbols = ".,\":-!? +-*/\\@#$%^&(){}[];'|`~=_©«»'—";
 
     public String encrypt(String message, int key) {
-
-        String alphabetEnUpperCase = "ABCDEFGHIJKLMNOPQRSTUVWXYZABCDEFGHIJKLMNOPQRSTUVWXYZ";
-        String alphabetEnLowerCase = "abcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyz";
-
-        String alphabetRuUpperCase = "АБВГДЕЁЖЗИЙКЛМНОПРСТУФХЦЧШЩЪЫЬЭЮЯАБВГДЕЁЖЗИЙКЛМНОПРСТУФХЦЧШЩЪЫЬЭЮЯ";
-        String alphabetRuLowerCase = "абвгдеёжзийклмнопрстуфхцчшщъыьэюяабвгдеёжзийклмнопрстуфхцчшщъыьэюя";
-
-        String symbols = ".,\":-!? +-*/\\@#$%^&(){}[];'|`~=_©«»'—.,\":-!? +-*/\\@#$%^&(){}[];'|`~=_©«»'—";
-        String digits = "01234567890123456789";
-
 
         StringBuilder result = new StringBuilder();
 
         for (char aChar : message.toCharArray()) {
 
-            int origAlphabetPosEnUC = alphabetEnUpperCase.indexOf(aChar);
-            int origAlphabetPosEnLC = alphabetEnLowerCase.indexOf(aChar);
-
-            int origAlphabetPosRuUC = alphabetRuUpperCase.indexOf(aChar);
-            int origAlphabetPosRuLC = alphabetRuLowerCase.indexOf(aChar);
-
-            int origSymbolPos = symbols.indexOf(aChar);
-            int origDigitsPos = digits.indexOf(aChar);
+            int origAlphabetPos = ALPHABET.indexOf(aChar);
 
             int newAlphabetPos;
             char newCharacter = 0;
 
-            if (origAlphabetPosEnUC >= 0) {
-                newAlphabetPos = newAlphabetPos(origAlphabetPosEnUC, alphabetEnUpperCase, key);
-                newCharacter = alphabetEnUpperCase.charAt(newAlphabetPos);
-            } else if (origAlphabetPosEnLC >= 0) {
-                newAlphabetPos = newAlphabetPos(origAlphabetPosEnLC, alphabetEnLowerCase, key);
-                newCharacter = alphabetEnLowerCase.charAt(newAlphabetPos);
-            } else if (origAlphabetPosRuUC >= 0) {
-                newAlphabetPos = newAlphabetPos(origAlphabetPosRuUC, alphabetRuUpperCase, key);
-                newCharacter = alphabetRuUpperCase.charAt(newAlphabetPos);
-            } else if (origAlphabetPosRuLC >= 0) {
-                newAlphabetPos = newAlphabetPos(origAlphabetPosRuLC, alphabetRuLowerCase, key);
-                newCharacter = alphabetRuLowerCase.charAt(newAlphabetPos);
-            } else if (origSymbolPos >= 0) {
-                newAlphabetPos = newAlphabetPos(origSymbolPos, symbols, key);
-                newCharacter = symbols.charAt(newAlphabetPos);
-            } else if (origDigitsPos >= 0) {
-                newAlphabetPos = newAlphabetPos(origDigitsPos, digits, key);
-                newCharacter = digits.charAt(newAlphabetPos);
+            if (origAlphabetPos >= 0) {
+                if (key > 0) {
+                    newAlphabetPos = (origAlphabetPos + key) % (ALPHABET.length() / 2);
+                } else {
+                    int newKey = key % (ALPHABET.length() / 2);
+                    newAlphabetPos = (origAlphabetPos + (ALPHABET.length() / 2) + newKey) % ALPHABET.length();
+                }
+                newCharacter = ALPHABET.charAt(newAlphabetPos);
             }
-
             result.append(newCharacter);
         }
-
         return result.toString();
     }
 
@@ -60,14 +36,4 @@ public class CaesarCipher {
         return encrypt(message, key * (-1));
     }
 
-    private int newAlphabetPos(int origAlphabetPos, String alphabet, int key) {
-        int newAlphabetPos;
-        if (key > 0) {
-            newAlphabetPos = (origAlphabetPos + key) % (alphabet.length() / 2);
-        } else {
-            int newKey = key % (alphabet.length() / 2);
-            newAlphabetPos = (origAlphabetPos + (alphabet.length() / 2) + newKey) % alphabet.length();
-        }
-        return newAlphabetPos;
-    }
 }
