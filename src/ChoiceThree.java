@@ -17,7 +17,6 @@ public class ChoiceThree {
         System.out.println("Введите полный путь к файлу, в который записать расшифрованый текст:");
         String pathNotEncryptedFile = scanner.nextLine();
 
-        int key;
         CaesarCipher caesarCipher = new CaesarCipher();
 
         try (BufferedReader bufferedReader = Files.newBufferedReader(Paths.get(pathEncryptedFile));
@@ -32,14 +31,12 @@ public class ChoiceThree {
             for (int i = 0; i <= caesarCipher.maxSize; i++) {
                 String deEncrypt = caesarCipher.deEncrypt(stringBuilder.toString(), i);
                 if (isValidText(deEncrypt)) {
-                    key = i;
                     bufferedWriter.write(deEncrypt);
-                    System.out.println("Содержимое файла расшифровано методом перебора ключей. Ключ расшифровки K = " + key);
+                    System.out.println("Содержимое файла расшифровано методом перебора ключей. Ключ расшифровки K = " + i);
                     break;
                 }
             }
         }
-        System.out.println("Содержимое файла не расшифровано!");
     }
 
     private static boolean isValidText(String text) {
@@ -52,8 +49,7 @@ public class ChoiceThree {
                 return false;
             }
         }
-        if (text.contains(". ") || text.contains(", ") || text.contains("! ")
-                || text.contains("/? ") || text.contains(" - ") || text.contains(" — ")) {
+        if (text.contains(". ") || text.contains(", ") || text.contains("! ") || text.contains("? ")) {
             flag = true;
         }
 
