@@ -27,7 +27,7 @@ public class ChoiceOne {
             while (bufferedReader.ready()) {
                 String string = bufferedReader.readLine();
                 String encryptString = caesarCipher.encrypt(string, key);
-                bufferedWriter.write(encryptString + "\n");
+                bufferedWriter.write(encryptString + System.lineSeparator());
             }
         }
         System.out.println("Содержимое файла зашифровано.");

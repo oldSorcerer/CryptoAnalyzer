@@ -42,7 +42,7 @@ public class ChoiceFour {
                         Character deEncryptedChar = mapDeEncrypted.get(encryptedChar);
                         stringBuilder.append(deEncryptedChar);
                     }
-                    bufferedWriter.write(stringBuilder + "\n");
+                    bufferedWriter.write(stringBuilder + System.lineSeparator());
                 }
             }
             System.out.println("Содержимое файла расшифровано методом статистического анализа.");

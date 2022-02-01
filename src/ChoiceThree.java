@@ -26,7 +26,7 @@ public class ChoiceThree {
 
             while (bufferedReader.ready()) {
                 String string = bufferedReader.readLine();
-                stringBuilder.append(string).append("\n");
+                stringBuilder.append(string).append(System.lineSeparator());
             }
             for (int i = 0; i <= caesarCipher.maxSize; i++) {
                 String deEncrypt = caesarCipher.deEncrypt(stringBuilder.toString(), i);
