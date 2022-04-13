@@ -1,10 +1,7 @@
-import java.io.BufferedReader;
-import java.io.BufferedWriter;
-import java.io.IOException;
+import java.io.*;
 import java.nio.file.Files;
 import java.nio.file.Paths;
-import java.util.Random;
-import java.util.Scanner;
+import java.util.*;
 
 public class ChoiceThree {
 
@@ -23,15 +20,20 @@ public class ChoiceThree {
              BufferedWriter bufferedWriter = Files.newBufferedWriter(Paths.get(pathNotEncryptedFile))) {
 
             StringBuilder stringBuilder = new StringBuilder();
+            ArrayList<String> listStrings = new ArrayList<>();
 
             while (bufferedReader.ready()) {
                 String string = bufferedReader.readLine();
-                stringBuilder.append(string).append(System.lineSeparator());
+                stringBuilder.append(string);
+                listStrings.add(string);
             }
-            for (int i = 0; i <= caesarCipher.maxSize; i++) {
+            for (int i = 0; i < caesarCipher.maxSize; i++) {
                 String deEncrypt = caesarCipher.deEncrypt(stringBuilder.toString(), i);
                 if (isValidText(deEncrypt)) {
-                    bufferedWriter.write(deEncrypt);
+                    for (String listString : listStrings) {
+                        String encrypt = caesarCipher.deEncrypt(listString, i);
+                        bufferedWriter.write(encrypt + System.lineSeparator());
+                    }
                     System.out.println("Содержимое файла расшифровано методом перебора ключей. Ключ расшифровки K = " + i);
                     break;
                 }
@@ -43,27 +45,30 @@ public class ChoiceThree {
 
         boolean flag = false;
 
-        String[] strings = text.split(" ");
+        int stringStart = new Random().nextInt(text.length() / 2);
+        String substring = text.substring(stringStart, stringStart + (int) Math.sqrt(text.length()));
+
+        String[] strings = substring.split(" ");
         for (String string : strings) {
             if (string.length() > 24) {
                 return false;
             }
         }
-        if (text.contains(". ") || text.contains(", ") || text.contains("! ") || text.contains("? ")) {
+        if (substring.contains(". ") || substring.contains(", ") || substring.contains("! ") || substring.contains("? ")) {
             flag = true;
         }
+        if (flag) {
+            System.out.println(substring);
+            System.out.println("Понятин ли вам этот текст? Y/N");
 
-        int stringStart = new Random().nextInt(text.length() / 2);
+            Scanner scanner = new Scanner(System.in);
+            String nextLine = scanner.nextLine();
 
-        System.out.println(text.substring(stringStart, stringStart + (int)Math.sqrt(text.length())));
-        System.out.println("Понятин ли вам этот текст? Y/N");
-
-        Scanner scanner = new Scanner(System.in);
-        String nextLine = scanner.nextLine();
-        if (nextLine.equals("Y") || nextLine.equals("y")) {
-            flag = true;
-        } else if (nextLine.equals("N") || nextLine.equals("n")){
-            return false;
+            if (nextLine.equalsIgnoreCase("Y")) {
+                return true;
+            } else if (nextLine.equalsIgnoreCase("N")) {
+                flag = false;
+            }
         }
         return flag;
     }
