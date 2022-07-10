@@ -1,12 +1,14 @@
 public class CaesarCipher {
 
-    public int maxSize = ALPHABET.length() / 2;
-
     private static final String ALPHABET_PART_ONE = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZабвгдеёжзийклмнопрстуфхцчшщъыьэюя" +
                                                     "АБВГДЕЁЖЗИЙКЛМНОПРСТУФХЦЧШЩЪЫЬЭЮЯ.,\":-!? +-*/\\@#$%^&(){}[];'|`~=_©«»—0123456789";
     private static final String ALPHABET_PART_TWO = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZабвгдеёжзийклмнопрстуфхцчшщъыьэюя" +
                                                     "АБВГДЕЁЖЗИЙКЛМНОПРСТУФХЦЧШЩЪЫЬЭЮЯ.,\":-!? +-*/\\@#$%^&(){}[];'|`~=_©«»—0123456789";
     private static final String ALPHABET = ALPHABET_PART_ONE + ALPHABET_PART_TWO;
+
+    public int alphabetLength() {
+        return ALPHABET.length() / 2;
+    }
 
     public String encrypt(String message, int key) {
 
@@ -20,7 +22,7 @@ public class CaesarCipher {
             char newCharacter = 0;
 
             if (origAlphabetPos >= 0) {
-                if (key > 0) {
+                if (key >= 0) {
                     newAlphabetPos = (origAlphabetPos + key) % (ALPHABET.length() / 2);
                 } else {
                     int newKey = key % (ALPHABET.length() / 2);
@@ -36,5 +38,4 @@ public class CaesarCipher {
     public String deEncrypt(String message, int key) {
         return encrypt(message, key * (-1));
     }
-
 }
