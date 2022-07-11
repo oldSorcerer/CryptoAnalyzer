@@ -1,3 +1,5 @@
+package main.java;
+
 import java.io.*;
 import java.nio.file.Files;
 import java.nio.file.Paths;
@@ -18,8 +20,8 @@ public class ChoiceTwo {
         System.out.println("Введите полный путь к файлу, в который записать расшифрованый текст:");
         String pathNotEncryptedFile = scanner.nextLine();
 
-        try (BufferedReader reader = Files.newBufferedReader(Paths.get(pathEncryptedFile));
-             BufferedWriter writer = Files.newBufferedWriter(Paths.get(pathNotEncryptedFile))
+        try (var reader = Files.newBufferedReader(Paths.get(pathEncryptedFile));
+             var writer = Files.newBufferedWriter(Paths.get(pathNotEncryptedFile))
         ) {
             while (reader.ready()) {
                 String string = reader.readLine();
