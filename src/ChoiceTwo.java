@@ -4,9 +4,10 @@ import java.nio.file.Paths;
 import java.util.Scanner;
 
 public class ChoiceTwo {
+    private final Scanner scanner = new Scanner(System.in);
+    private final CaesarCipher caesarCipher = new CaesarCipher();
 
-    public static void choiceTwo() throws IOException {
-        Scanner scanner = new Scanner(System.in);
+    public void choiceTwo() throws IOException {
 
         System.out.println("Введите полный путь к файлу, для его расшифровки:");
         String pathEncryptedFile = scanner.nextLine();
@@ -17,15 +18,13 @@ public class ChoiceTwo {
         System.out.println("Введите полный путь к файлу, в который записать расшифрованый текст:");
         String pathNotEncryptedFile = scanner.nextLine();
 
-        CaesarCipher caesarCipher = new CaesarCipher();
-
-        try (BufferedReader bufferedReader = Files.newBufferedReader(Paths.get(pathEncryptedFile));
-             BufferedWriter bufferedWriter = Files.newBufferedWriter(Paths.get(pathNotEncryptedFile))
+        try (BufferedReader reader = Files.newBufferedReader(Paths.get(pathEncryptedFile));
+             BufferedWriter writer = Files.newBufferedWriter(Paths.get(pathNotEncryptedFile))
         ) {
-            while (bufferedReader.ready()) {
-                String string = bufferedReader.readLine();
+            while (reader.ready()) {
+                String string = reader.readLine();
                 String deEncryptString = caesarCipher.deEncrypt(string, key);
-                bufferedWriter.write(deEncryptString + System.lineSeparator());
+                writer.write(deEncryptString + System.lineSeparator());
             }
         }
         System.out.println("Содержимое файла расшифровано.");

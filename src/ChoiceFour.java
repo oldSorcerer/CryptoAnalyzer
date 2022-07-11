@@ -4,10 +4,13 @@ import java.nio.file.Paths;
 import java.util.*;
 
 public class ChoiceFour {
+    private final Scanner scanner = new Scanner(System.in);
 
-    public static void choiceFour() throws IOException {
+    private final HashMap<Character, Character> mapDeEncrypted = new HashMap<>();
+    private final Map<Character, Integer> mapEncryptedFile = new HashMap<>();
+    private final Map<Character, Integer> mapStatisticFile = new HashMap<>();
 
-        Scanner scanner = new Scanner(System.in);
+    public void choiceFour() throws IOException {
 
         System.out.println("Введите полный путь к файлу, для его расшифровки:");
         String pathEncryptedFile = scanner.nextLine();
@@ -18,29 +21,24 @@ public class ChoiceFour {
         System.out.println("Введите полный путь к файлу, в который записать расшифрованый текст:");
         String pathNotEncryptedFile = scanner.nextLine();
 
-        Map<Character, Integer> mapEncryptedFile = new HashMap<>();
-        Map<Character, Integer> mapStatisticFile = new HashMap<>();
-
         List<Map.Entry<Character, Integer>> listEncryptedFile = fillMapValues(mapEncryptedFile, pathEncryptedFile);
         List<Map.Entry<Character, Integer>> listStatisticFile = fillMapValues(mapStatisticFile, pathStatisticFile);
-
-        HashMap<Character, Character> mapDeEncrypted = new HashMap<>();
 
         if (listEncryptedFile.size() <= listStatisticFile.size() ) {
             for (int i = 0; i < listEncryptedFile.size(); i++) {
                 mapDeEncrypted.put(listEncryptedFile.get(i).getKey(), listStatisticFile.get(i).getKey());
             }
-            try (BufferedReader bufferedReader = Files.newBufferedReader(Paths.get(pathEncryptedFile));
-                 BufferedWriter bufferedWriter = Files.newBufferedWriter(Paths.get(pathNotEncryptedFile))) {
-                while (bufferedReader.ready()) {
-                    String string = bufferedReader.readLine();
+            try (BufferedReader reader = Files.newBufferedReader(Paths.get(pathEncryptedFile));
+                 BufferedWriter writer = Files.newBufferedWriter(Paths.get(pathNotEncryptedFile))) {
+                while (reader.ready()) {
+                    String string = reader.readLine();
                     StringBuilder stringBuilder = new StringBuilder();
                     for (int i = 0; i < string.length(); i++) {
                         char encryptedChar = string.charAt(i);
                         Character deEncryptedChar = mapDeEncrypted.get(encryptedChar);
                         stringBuilder.append(deEncryptedChar);
                     }
-                    bufferedWriter.write(stringBuilder + System.lineSeparator());
+                    writer.write(stringBuilder + System.lineSeparator());
                 }
             }
             System.out.println("Содержимое файла расшифровано методом статистического анализа.");
@@ -49,12 +47,12 @@ public class ChoiceFour {
         }
     }
 
-    private static List<Map.Entry<Character, Integer>> fillMapValues(Map<Character, Integer> map, String path) throws IOException {
+    private List<Map.Entry<Character, Integer>> fillMapValues(Map<Character, Integer> map, String path) throws IOException {
 
         StringBuilder stringBuilder = new StringBuilder();
-        try (BufferedReader bufferedReader = Files.newBufferedReader(Paths.get(path))) {
-            while (bufferedReader.ready()) {
-                String string = bufferedReader.readLine();
+        try (BufferedReader reader = Files.newBufferedReader(Paths.get(path))) {
+            while (reader.ready()) {
+                String string = reader.readLine();
                 stringBuilder.append(string);
             }
             String bigString = stringBuilder.toString();
