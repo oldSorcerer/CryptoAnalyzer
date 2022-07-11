@@ -1,5 +1,3 @@
-package main.java;
-
 public class CaesarCipher {
 
     private static final String ALPHABET_PART_ONE = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZабвгдеёжзийклмнопрстуфхцчшщъыьэюя" +

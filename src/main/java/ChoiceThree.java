@@ -1,5 +1,3 @@
-package main.java;
-
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
@@ -49,9 +47,9 @@ public class ChoiceThree {
         int stringStart = new Random().nextInt(text.length() / 2);
         String substring = text.substring(stringStart, stringStart + (int) Math.sqrt(text.length()));
 
-        String[] strings = substring.split(" ");
-        for (String string : strings) {
-            if (string.length() > 24) {
+        String[] words = substring.split(" ");
+        for (String word : words) {
+            if (word.length() > 24) {
                 return false;
             }
         }
