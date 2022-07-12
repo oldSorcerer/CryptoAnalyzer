@@ -6,9 +6,9 @@ import java.util.*;
 public class ChoiceFour {
     private final Scanner scanner = new Scanner(System.in);
 
-    private final HashMap<Character, Character> mapDeEncrypted = new HashMap<>();
     private final Map<Character, Integer> mapEncryptedFile = new HashMap<>();
     private final Map<Character, Integer> mapStatisticFile = new HashMap<>();
+    private final Map<Character, Character> mapDeEncrypted = new HashMap<>();
 
     public void choiceFour() throws IOException {
 

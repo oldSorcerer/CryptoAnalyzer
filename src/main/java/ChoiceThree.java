@@ -44,8 +44,8 @@ public class ChoiceThree {
 
         boolean isValidate = false;
 
-        int stringStart = new Random().nextInt(text.length() / 2);
-        String substring = text.substring(stringStart, stringStart + (int) Math.sqrt(text.length()));
+        int indexStart = new Random().nextInt(text.length() / 2);
+        String substring = text.substring(indexStart, indexStart + (int) Math.sqrt(text.length()));
 
         String[] words = substring.split(" ");
         for (String word : words) {
@@ -56,19 +56,21 @@ public class ChoiceThree {
         if (substring.contains(". ") || substring.contains(", ") || substring.contains("! ") || substring.contains("? ")) {
             isValidate = true;
         }
-        if (isValidate) {
+        while (isValidate) {
             System.out.println(substring);
             System.out.println("Понятин ли вам этот текст? Y/N");
 
             Scanner scanner = new Scanner(System.in);
-            String nextLine = scanner.nextLine();
+            String answer = scanner.nextLine();
 
-            if (nextLine.equalsIgnoreCase("Y")) {
+            if (answer.equalsIgnoreCase("Y")) {
                 return true;
-            } else if (nextLine.equalsIgnoreCase("N")) {
+            } else if (answer.equalsIgnoreCase("N")) {
                 isValidate = false;
+            } else {
+                System.out.println("выберете только между Y/N");
             }
         }
-        return isValidate;
+        return false;
     }
 }
