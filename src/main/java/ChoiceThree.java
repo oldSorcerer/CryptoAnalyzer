@@ -19,7 +19,7 @@ public class ChoiceThree {
              var writer = Files.newBufferedWriter(Paths.get(pathNotEncryptedFile))) {
 
             StringBuilder stringBuilder = new StringBuilder();
-            ArrayList<String> listStrings = new ArrayList<>();
+            List<String> listStrings = new ArrayList<>();
 
             while (reader.ready()) {
                 String string = reader.readLine();

@@ -30,11 +30,10 @@ public class ChoiceFour {
             }
             try (BufferedReader reader = Files.newBufferedReader(Paths.get(pathEncryptedFile));
                  BufferedWriter writer = Files.newBufferedWriter(Paths.get(pathNotEncryptedFile))) {
+                StringBuilder stringBuilder = new StringBuilder();
                 while (reader.ready()) {
                     String string = reader.readLine();
-                    StringBuilder stringBuilder = new StringBuilder();
-                    for (int i = 0; i < string.length(); i++) {
-                        char encryptedChar = string.charAt(i);
+                    for (char encryptedChar : string.toCharArray()) {
                         Character deEncryptedChar = mapDeEncrypted.get(encryptedChar);
                         stringBuilder.append(deEncryptedChar);
                     }
