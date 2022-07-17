@@ -21,8 +21,8 @@ public class ChoiceFour {
         System.out.println("Введите полный путь к файлу, в который записать расшифрованый текст:");
         String pathNotEncryptedFile = scanner.nextLine();
 
-        List<Map.Entry<Character, Integer>> listEncryptedFile = fillMapValues(mapEncryptedFile, pathEncryptedFile);
-        List<Map.Entry<Character, Integer>> listStatisticFile = fillMapValues(mapStatisticFile, pathStatisticFile);
+        List<Map.Entry<Character, Integer>> listEncryptedFile = mapToList(fillMapValues(mapEncryptedFile, pathEncryptedFile));
+        List<Map.Entry<Character, Integer>> listStatisticFile = mapToList(fillMapValues(mapStatisticFile, pathStatisticFile));
 
         if (listEncryptedFile.size() <= listStatisticFile.size() ) {
             for (int i = 0; i < listEncryptedFile.size(); i++) {
@@ -46,7 +46,7 @@ public class ChoiceFour {
         }
     }
 
-    private List<Map.Entry<Character, Integer>> fillMapValues(Map<Character, Integer> map, String path) throws IOException {
+    private Map<Character, Integer> fillMapValues(Map<Character, Integer> map, String path) throws IOException {
 
         StringBuilder stringBuilder = new StringBuilder();
         try (BufferedReader reader = Files.newBufferedReader(Paths.get(path))) {
@@ -63,14 +63,17 @@ public class ChoiceFour {
                     map.put(charAt, map.get(charAt) + 1);
                 }
             }
-
-            List<Map.Entry<Character, Integer>> list = new ArrayList<>(map.entrySet());
-
-            Comparator<Map.Entry<Character, Integer>> comparator = Map.Entry.comparingByValue();
-
-            list.sort(comparator.reversed());
-
-            return list;
+            return map;
         }
+    }
+
+    private List<Map.Entry<Character, Integer>> mapToList(Map<Character, Integer> map) {
+        List<Map.Entry<Character, Integer>> list = new ArrayList<>(map.entrySet());
+
+        Comparator<Map.Entry<Character, Integer>> comparator = Map.Entry.comparingByValue();
+
+        list.sort(comparator.reversed());
+
+        return list;
     }
 }

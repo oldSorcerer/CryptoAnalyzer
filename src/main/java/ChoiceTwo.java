@@ -23,8 +23,8 @@ public class ChoiceTwo {
         ) {
             while (reader.ready()) {
                 String string = reader.readLine();
-                String deEncryptString = caesarCipher.deEncrypt(string, key);
-                writer.write(deEncryptString + System.lineSeparator());
+                String decryptString = caesarCipher.decrypt(string, key);
+                writer.write(decryptString + System.lineSeparator());
             }
         }
         System.out.println("Содержимое файла расшифровано.");
