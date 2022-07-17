@@ -35,7 +35,7 @@ public class CaesarCipher {
         return result.toString();
     }
 
-    public String deEncrypt(String message, int key) {
+    public String decrypt(String message, int key) {
         return encrypt(message, key * (-1));
     }
 }

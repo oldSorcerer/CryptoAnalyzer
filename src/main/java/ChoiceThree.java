@@ -27,10 +27,10 @@ public class ChoiceThree {
                 listStrings.add(string);
             }
             for (int i = 0; i < caesarCipher.alphabetLength(); i++) {
-                String deEncrypt = caesarCipher.deEncrypt(stringBuilder.toString(), i);
-                if (isValidateText(deEncrypt)) {
+                String decrypt = caesarCipher.decrypt(stringBuilder.toString(), i);
+                if (isValidateText(decrypt)) {
                     for (String listString : listStrings) {
-                        String encrypt = caesarCipher.deEncrypt(listString, i);
+                        String encrypt = caesarCipher.decrypt(listString, i);
                         writer.write(encrypt + System.lineSeparator());
                     }
                     System.out.println("Содержимое файла расшифровано методом перебора ключей. Ключ расшифровки K = " + i);
