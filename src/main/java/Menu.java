@@ -7,11 +7,10 @@ public class Menu {
 
         while (true) {
             System.out.println("""
-
                     Выберете действие, введя его номер:\s
                     1. Зашифровать текст в файле с помощью ключа.\s
                     2. Расшифровать текст в файле с помощью ключа.\s
-                    3. Подобрать ключ к зашифрованому тексу в файле (brute force).\s
+                    3. Подобрать ключ к зашифрованному тексу в файле (brute force).\s
                     4. Расшифровать текст в файле методом статического перебора.\s
 
                     Для выхода из программы введите exit""");
@@ -23,9 +22,7 @@ public class Menu {
                 case ("2") -> new ChoiceTwo().choiceTwo();
                 case ("3") -> new ChoiceThree().choiceThree();
                 case ("4") -> new ChoiceFour().choiceFour();
-            }
-            if (answer.equals("exit")) {
-                break;
+                case ("exit") -> {return;}
             }
         }
     }

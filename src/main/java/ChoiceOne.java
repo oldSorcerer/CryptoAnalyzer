@@ -7,19 +7,19 @@ public class ChoiceOne {
     private final Scanner scanner = new Scanner(System.in);
     private final CaesarCipher caesarCipher = new CaesarCipher();
 
-    public void choiceOne() throws IOException {
+    public void choiceOne() throws IOException { //Encrypted
 
         System.out.println("Введите полный путь к файлу, для его зашифровки:");
-        String pathNotEncryptedFile = scanner.nextLine();
+        String pathNotEncrypted = scanner.nextLine();
 
         System.out.println("Введите ключ шифрования:");
         int key = Integer.parseInt(scanner.nextLine());
 
         System.out.println("Введите полный путь к файлу, в который записать зашифрованый текст:");
-        String pathEncryptedFile = scanner.nextLine();
+        String pathEncrypted = scanner.nextLine();
 
-        try (var reader = Files.newBufferedReader(Paths.get(pathNotEncryptedFile));
-             var writer = Files.newBufferedWriter(Paths.get(pathEncryptedFile))
+        try (var reader = Files.newBufferedReader(Paths.get(pathNotEncrypted));
+             var writer = Files.newBufferedWriter(Paths.get(pathEncrypted))
         ) {
             while (reader.ready()) {
                 String string = reader.readLine();
@@ -27,6 +27,6 @@ public class ChoiceOne {
                 writer.write(encryptString + System.lineSeparator());
             }
         }
-        System.out.println("Содержимое файла зашифровано.");
+        System.out.println("Содержимое файла зашифровано." + System.lineSeparator());
     }
 }

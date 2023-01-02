@@ -27,6 +27,6 @@ public class ChoiceTwo {
                 writer.write(decryptString + System.lineSeparator());
             }
         }
-        System.out.println("Содержимое файла расшифровано.");
+        System.out.println("Содержимое файла расшифровано." + System.lineSeparator());
     }
 }

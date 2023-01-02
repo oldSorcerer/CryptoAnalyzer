@@ -2,6 +2,7 @@ import java.io.*;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.*;
+import java.util.stream.IntStream;
 
 public class ChoiceFour {
     private final Scanner scanner = new Scanner(System.in);
@@ -16,7 +17,7 @@ public class ChoiceFour {
         String pathEncryptedFile = scanner.nextLine();
 
         System.out.println("Введите полный путь к файлу, для набора статистики:");
-        String pathStatisticFile  = scanner.nextLine();
+        String pathStatisticFile = scanner.nextLine();
 
         System.out.println("Введите полный путь к файлу, в который записать расшифрованый текст:");
         String pathNotEncryptedFile = scanner.nextLine();
@@ -24,43 +25,41 @@ public class ChoiceFour {
         List<Map.Entry<Character, Integer>> listEncryptedFile = mapToList(fillMapValues(mapEncryptedFile, pathEncryptedFile));
         List<Map.Entry<Character, Integer>> listStatisticFile = mapToList(fillMapValues(mapStatisticFile, pathStatisticFile));
 
-        if (listEncryptedFile.size() <= listStatisticFile.size() ) {
+        if (listEncryptedFile.size() <= listStatisticFile.size()) {
             for (int i = 0; i < listEncryptedFile.size(); i++) {
                 mapDeEncrypted.put(listEncryptedFile.get(i).getKey(), listStatisticFile.get(i).getKey());
             }
             try (BufferedReader reader = Files.newBufferedReader(Paths.get(pathEncryptedFile));
-                 BufferedWriter writer = Files.newBufferedWriter(Paths.get(pathNotEncryptedFile))) {
-                StringBuilder stringBuilder = new StringBuilder();
+                 BufferedWriter writer = Files.newBufferedWriter(Paths.get(pathNotEncryptedFile))) { // decryption
                 while (reader.ready()) {
+                    StringBuilder builder = new StringBuilder();
                     String string = reader.readLine();
                     for (char encryptedChar : string.toCharArray()) {
                         Character deEncryptedChar = mapDeEncrypted.get(encryptedChar);
-                        stringBuilder.append(deEncryptedChar);
+                        builder.append(deEncryptedChar);
                     }
-                    writer.write(stringBuilder + System.lineSeparator());
+                    writer.write(builder + System.lineSeparator());
                 }
             }
-            System.out.println("Содержимое файла расшифровано методом статистического анализа.");
+            System.out.println("Содержимое файла расшифровано методом статистического анализа." + System.lineSeparator());
         } else {
-            System.out.println("Размер файла статистики недостаточен для расшифровки, необходим файл большей длины чем зашифрованный");
+            System.out.println("Размер файла статистики недостаточен для расшифровки, необходим файл большей длины чем зашифрованный" + System.lineSeparator());
         }
     }
 
     private Map<Character, Integer> fillMapValues(Map<Character, Integer> map, String path) throws IOException {
 
-        StringBuilder stringBuilder = new StringBuilder();
+        StringBuilder builder = new StringBuilder();
         try (BufferedReader reader = Files.newBufferedReader(Paths.get(path))) {
             while (reader.ready()) {
                 String string = reader.readLine();
-                stringBuilder.append(string);
+                builder.append(string);
             }
-            String bigString = stringBuilder.toString();
-            for (int i = 0; i < bigString.length(); i++) {
-                char charAt = bigString.charAt(i);
-                if (!map.containsKey(charAt)) {
-                    map.put(charAt, 1);
+            for (char aChar : builder.toString().toCharArray()) {
+                if (!map.containsKey(aChar)) {
+                    map.put(aChar, 1);
                 } else {
-                    map.put(charAt, map.get(charAt) + 1);
+                    map.put(aChar, map.get(aChar) + 1);
                 }
             }
             return map;
@@ -75,5 +74,6 @@ public class ChoiceFour {
         list.sort(comparator.reversed());
 
         return list;
+//        map.entrySet().stream().sorted(Map.Entry.<Character, Integer>comparingByValue().reversed()).forEach(System.out::println);
     }
 }

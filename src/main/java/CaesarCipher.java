@@ -1,38 +1,24 @@
 public class CaesarCipher {
 
-    private static final String ALPHABET_PART_ONE = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZабвгдеёжзийклмнопрстуфхцчшщъыьэюя" +
-                                                    "АБВГДЕЁЖЗИЙКЛМНОПРСТУФХЦЧШЩЪЫЬЭЮЯ.,\":-!? +-*/\\@#$%^&(){}[];'|`~=_©«»—0123456789";
-    private static final String ALPHABET_PART_TWO = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZабвгдеёжзийклмнопрстуфхцчшщъыьэюя" +
-                                                    "АБВГДЕЁЖЗИЙКЛМНОПРСТУФХЦЧШЩЪЫЬЭЮЯ.,\":-!? +-*/\\@#$%^&(){}[];'|`~=_©«»—0123456789";
-    private static final String ALPHABET = ALPHABET_PART_ONE + ALPHABET_PART_TWO;
+    private static final String ALPHABET =   "abcdefghijklmnopqrstuvwxyz" + "ABCDEFGHIJKLMNOPQRSTUVWXYZ" +
+                        "абвгдеёжзийклмнопрстуфхцчшщъыьэюя" + "АБВГДЕЁЖЗИЙКЛМНОПРСТУФХЦЧШЩЪЫЬЭЮЯ" +
+                        ".,\":!? +-*/\\@#$%^&(){}[];'|`~=_©«»—" + "0123456789";
 
     public int alphabetLength() {
-        return ALPHABET.length() / 2;
+        return ALPHABET.length();
     }
 
     public String encrypt(String message, int key) {
-
-        StringBuilder result = new StringBuilder();
-
+        StringBuilder builder = new StringBuilder();
         for (char aChar : message.toCharArray()) {
-
-            int origAlphabetPos = ALPHABET.indexOf(aChar);
-
-            int newAlphabetPos;
-            char newCharacter = 0;
-
-            if (origAlphabetPos >= 0) {
-                if (key >= 0) {
-                    newAlphabetPos = (origAlphabetPos + key) % (ALPHABET.length() / 2);
-                } else {
-                    int newKey = key % (ALPHABET.length() / 2);
-                    newAlphabetPos = (origAlphabetPos + (ALPHABET.length() / 2) + newKey) % ALPHABET.length();
-                }
-                newCharacter = ALPHABET.charAt(newAlphabetPos);
+            int index = ALPHABET.indexOf(aChar);
+            if (index >= 0) {
+                int newIndex = (index + key) % ALPHABET.length();
+                char charAt = newIndex < 0 ? ALPHABET.charAt(ALPHABET.length() + newIndex) : ALPHABET.charAt(newIndex);
+                builder.append(charAt);
             }
-            result.append(newCharacter);
         }
-        return result.toString();
+        return builder.toString();
     }
 
     public String decrypt(String message, int key) {
