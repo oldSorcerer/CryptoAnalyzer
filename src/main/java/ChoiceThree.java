@@ -18,16 +18,16 @@ public class ChoiceThree {
         try (var reader = Files.newBufferedReader(Paths.get(pathEncryptedFile));
              var writer = Files.newBufferedWriter(Paths.get(pathNotEncryptedFile))) {
 
-            StringBuilder stringBuilder = new StringBuilder();
+            StringBuilder builder = new StringBuilder();
             List<String> listStrings = new ArrayList<>();
 
             while (reader.ready()) {
                 String string = reader.readLine();
-                stringBuilder.append(string);
+                builder.append(string);
                 listStrings.add(string);
             }
             for (int i = 0; i < caesarCipher.alphabetLength(); i++) {
-                String decrypt = caesarCipher.decrypt(stringBuilder.toString(), i);
+                String decrypt = caesarCipher.decrypt(builder.toString(), i);
                 if (isValidateText(decrypt)) {
                     for (String listString : listStrings) {
                         String encrypt = caesarCipher.decrypt(listString, i);
@@ -40,25 +40,25 @@ public class ChoiceThree {
         }
     }
 
-    private static boolean isValidateText(String text) {
+    private boolean isValidateText(String text) {
 
         boolean isValidate = false;
 
         int indexStart = new Random().nextInt(text.length() / 2);
         String substring = text.substring(indexStart, indexStart + (int) Math.sqrt(text.length()));
 
-        String[] words = substring.split(" ");
-        for (String word : words) {
-            if (word.length() > 24) {
+        for (String word : substring.split(" ")) {
+            if (word.length() > 28) {
                 return false;
             }
         }
+
         if (substring.contains(". ") || substring.contains(", ") || substring.contains("! ") || substring.contains("? ")) {
+//            substring.matches("[.,:!?]+\s");
             isValidate = true;
         }
         while (isValidate) {
-            System.out.println(substring);
-            System.out.println("Понятин ли вам этот текст? Y/N");
+            System.out.println(substring + System.lineSeparator() + "Понятин ли вам этот текст? Y/N");
 
             Scanner scanner = new Scanner(System.in);
             String answer = scanner.nextLine();
