@@ -60,7 +60,7 @@ public class ChoiceFour {
                     map.put(aChar, 1);
                 } else {
                     map.put(aChar, map.get(aChar) + 1);
-                }
+                } //map.merge(aChar, 1, Integer::sum);
             }
             return map;
         }

@@ -60,7 +60,6 @@ public class ChoiceThree {
         while (isValidate) {
             System.out.println(substring + System.lineSeparator() + "Понятин ли вам этот текст? Y/N");
 
-            Scanner scanner = new Scanner(System.in);
             String answer = scanner.nextLine();
 
             if (answer.equalsIgnoreCase("Y")) {
