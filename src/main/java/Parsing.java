@@ -2,49 +2,48 @@ import java.io.*;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.*;
-import java.util.stream.IntStream;
 
-public class ChoiceFour {
+public class Parsing {
     private final Scanner scanner = new Scanner(System.in);
 
-    private final Map<Character, Integer> mapEncryptedFile = new HashMap<>();
-    private final Map<Character, Integer> mapStatisticFile = new HashMap<>();
-    private final Map<Character, Character> mapDeEncrypted = new HashMap<>();
+    private final Map<Character, Integer> encrypted = new HashMap<>();
+    private final Map<Character, Integer> statistic = new HashMap<>();
+    private final Map<Character, Character> decrypted = new HashMap<>();
 
-    public void choiceFour() throws IOException {
+    public void parse() throws IOException {
 
         System.out.println("Введите полный путь к файлу, для его расшифровки:");
-        String pathEncryptedFile = scanner.nextLine();
+        String pathEncrypted = scanner.nextLine();
 
         System.out.println("Введите полный путь к файлу, для набора статистики:");
-        String pathStatisticFile = scanner.nextLine();
+        String pathStatistic = scanner.nextLine();
 
         System.out.println("Введите полный путь к файлу, в который записать расшифрованый текст:");
-        String pathNotEncryptedFile = scanner.nextLine();
+        String pathNotEncrypted = scanner.nextLine();
 
-        List<Map.Entry<Character, Integer>> listEncryptedFile = mapToList(fillMapValues(mapEncryptedFile, pathEncryptedFile));
-        List<Map.Entry<Character, Integer>> listStatisticFile = mapToList(fillMapValues(mapStatisticFile, pathStatisticFile));
+        List<Map.Entry<Character, Integer>> listEncrypted = mapToList(fillMapValues(encrypted, pathEncrypted));
+        List<Map.Entry<Character, Integer>> listStatistic = mapToList(fillMapValues(statistic, pathStatistic));
 
-        if (listEncryptedFile.size() <= listStatisticFile.size()) {
-            for (int i = 0; i < listEncryptedFile.size(); i++) {
-                mapDeEncrypted.put(listEncryptedFile.get(i).getKey(), listStatisticFile.get(i).getKey());
+        if (listEncrypted.size() <= listStatistic.size()) {
+            for (int i = 0; i < listEncrypted.size(); i++) {
+                decrypted.put(listEncrypted.get(i).getKey(), listStatistic.get(i).getKey());
             }
-            try (BufferedReader reader = Files.newBufferedReader(Paths.get(pathEncryptedFile));
-                 BufferedWriter writer = Files.newBufferedWriter(Paths.get(pathNotEncryptedFile))) { // decryption
-                while (reader.ready()) {
-                    StringBuilder builder = new StringBuilder();
-                    String string = reader.readLine();
-                    for (char encryptedChar : string.toCharArray()) {
-                        Character deEncryptedChar = mapDeEncrypted.get(encryptedChar);
-                        builder.append(deEncryptedChar);
-                    }
-                    writer.write(builder + System.lineSeparator());
-                }
-            }
-            System.out.println("Содержимое файла расшифровано методом статистического анализа." + System.lineSeparator());
         } else {
             System.out.println("Размер файла статистики недостаточен для расшифровки, необходим файл большей длины чем зашифрованный" + System.lineSeparator());
         }
+        try (BufferedReader reader = Files.newBufferedReader(Paths.get(pathEncrypted));
+             BufferedWriter writer = Files.newBufferedWriter(Paths.get(pathNotEncrypted))) { // decryption
+            while (reader.ready()) {
+                StringBuilder builder = new StringBuilder();
+                String string = reader.readLine();
+                for (char encryptedChar : string.toCharArray()) {
+                    Character decryptedChar = decrypted.get(encryptedChar);
+                    builder.append(decryptedChar);
+                }
+                writer.write(builder + System.lineSeparator());
+            }
+        }
+        System.out.println("Содержимое файла расшифровано методом статистического анализа." + System.lineSeparator());
     }
 
     private Map<Character, Integer> fillMapValues(Map<Character, Integer> map, String path) throws IOException {
