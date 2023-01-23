@@ -3,11 +3,11 @@ import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.Scanner;
 
-public class ChoiceOne {
+public class Encrypted {
     private final Scanner scanner = new Scanner(System.in);
     private final CaesarCipher caesarCipher = new CaesarCipher();
 
-    public void choiceOne() throws IOException { //Encrypted
+    public void encrypted() throws IOException {
 
         System.out.println("Введите полный путь к файлу, для его зашифровки:");
         String pathNotEncrypted = scanner.nextLine();

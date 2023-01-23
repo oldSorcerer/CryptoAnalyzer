@@ -17,8 +17,8 @@ public class Menu {
             String answer = reader.readLine();
 
             switch (answer) {
-                case ("1") -> new ChoiceOne().choiceOne();
-                case ("2") -> new ChoiceTwo().choiceTwo();
+                case ("1") -> new Encrypted().encrypted();
+                case ("2") -> new Decrypted().decrypted();
                 case ("3") -> new ChoiceThree().choiceThree();
                 case ("4") -> new Parsing().parse();
                 case ("5") -> {return;}
