@@ -1,5 +1,6 @@
 import java.io.*;
 import java.nio.file.Files;
+import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.*;
 
@@ -18,8 +19,7 @@ public class Parsing {
         System.out.println("Введите полный путь к файлу, для набора статистики:");
         String pathStatistic = scanner.nextLine();
 
-        System.out.println("Введите полный путь к файлу, в который записать расшифрованый текст:");
-        String pathNotEncrypted = scanner.nextLine();
+        Path parsing = PathHelper.buildFileName(pathEncrypted, "_parsing");
 
         List<Map.Entry<Character, Integer>> listEncrypted = mapToList(fillMapValues(encrypted, pathEncrypted));
         List<Map.Entry<Character, Integer>> listStatistic = mapToList(fillMapValues(statistic, pathStatistic));
@@ -32,7 +32,7 @@ public class Parsing {
             System.out.println("Размер файла статистики недостаточен для расшифровки, необходим файл большей длины чем зашифрованный" + System.lineSeparator());
         }
         try (BufferedReader reader = Files.newBufferedReader(Paths.get(pathEncrypted));
-             BufferedWriter writer = Files.newBufferedWriter(Paths.get(pathNotEncrypted))) { // decryption
+             BufferedWriter writer = Files.newBufferedWriter(parsing)) { // decryption
             while (reader.ready()) {
                 StringBuilder builder = new StringBuilder();
                 String string = reader.readLine();
