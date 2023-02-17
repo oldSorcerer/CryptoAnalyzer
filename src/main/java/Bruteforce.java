@@ -1,36 +1,37 @@
+import java.io.BufferedReader;
+import java.io.BufferedWriter;
 import java.io.IOException;
 import java.nio.file.Files;
-import java.nio.file.Paths;
+import java.nio.file.Path;
 import java.util.*;
 
-public class ChoiceThree {
+public class Bruteforce {
     private final Scanner scanner = new Scanner(System.in);
     private final CaesarCipher caesarCipher = new CaesarCipher();
 
-    public void choiceThree() throws IOException {
+    public void bruteforce() throws IOException {
 
         System.out.println("Введите полный путь к файлу, для его расшифровки:");
-        String pathEncryptedFile = scanner.nextLine();
+        String path = scanner.nextLine();
 
-        System.out.println("Введите полный путь к файлу, в который записать расшифрованый текст:");
-        String pathNotEncryptedFile = scanner.nextLine();
+        Path bruteforce = PathHelper.buildFileName(path, "_bruteforce");
 
-        try (var reader = Files.newBufferedReader(Paths.get(pathEncryptedFile));
-             var writer = Files.newBufferedWriter(Paths.get(pathNotEncryptedFile))) {
+        try (BufferedReader reader = Files.newBufferedReader(Path.of(path));
+             BufferedWriter writer = Files.newBufferedWriter(bruteforce)) {
 
             StringBuilder builder = new StringBuilder();
-            List<String> listStrings = new ArrayList<>();
+            List<String> list = new ArrayList<>();
 
             while (reader.ready()) {
                 String string = reader.readLine();
-                builder.append(string);
-                listStrings.add(string);
+                builder.append(string).append(System.lineSeparator());
+                list.add(string);
             }
             for (int i = 0; i < caesarCipher.alphabetLength(); i++) {
                 String decrypt = caesarCipher.decrypt(builder.toString(), i);
                 if (isValidateText(decrypt)) {
-                    for (String listString : listStrings) {
-                        String encrypt = caesarCipher.decrypt(listString, i);
+                    for (String string : list) {
+                        String encrypt = caesarCipher.decrypt(string, i);
                         writer.write(encrypt + System.lineSeparator());
                     }
                     System.out.println("Содержимое файла расшифровано методом перебора ключей. Ключ расшифровки K = " + i);

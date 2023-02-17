@@ -1,12 +1,14 @@
 import java.nio.file.Path;
 
-
 public class PathHelper {
 
+    private PathHelper() {
+    }
+
     public static Path buildFileName(String path, String suffix) {
-        Path pathPrimary = Path.of(path);
-        Path directory = pathPrimary.getParent();
-        String fileName = pathPrimary.getFileName().toString();
+        Path fullPath = Path.of(path);
+        Path directory = fullPath.getParent();
+        String fileName = fullPath.getFileName().toString();
         String newFileName;
         if (fileName.contains(".")) {
             int index = fileName.lastIndexOf(".");
