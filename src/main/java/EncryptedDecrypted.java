@@ -31,5 +31,4 @@ public class EncryptedDecrypted {
         System.out.println("Содержимое файла " + newPath.getFileName() + (flag ? " зашифровано" : " расшифровано") +
                 System.lineSeparator());
     }
-
 }
