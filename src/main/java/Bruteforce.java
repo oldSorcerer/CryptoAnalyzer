@@ -6,8 +6,10 @@ import java.nio.file.Path;
 import java.util.*;
 
 public class Bruteforce {
+
     private final Scanner scanner = new Scanner(System.in);
     private final CaesarCipher caesarCipher = new CaesarCipher();
+    private static final int MAX_LENGTH_WORD = 28;
 
     public void bruteforce() throws IOException {
 
@@ -34,7 +36,7 @@ public class Bruteforce {
                         String encrypt = caesarCipher.decrypt(string, i);
                         writer.write(encrypt + System.lineSeparator());
                     }
-                    System.out.println("Содержимое файла расшифровано методом перебора ключей. Ключ расшифровки K = " + i);
+                    System.out.println("Содержимое файла расшифровано, методом перебора ключей. Ключ расшифровки K = " + i);
                     break;
                 }
             }
@@ -45,21 +47,20 @@ public class Bruteforce {
 
         boolean isValidate = false;
 
-        int indexStart = new Random().nextInt(text.length() / 2);
-        String substring = text.substring(indexStart, indexStart + (int) Math.sqrt(text.length()));
-
-        for (String word : substring.split(" ")) {
-            if (word.length() > 28) {
+        for (String word : text.split(" ")) {
+            if (word.length() > MAX_LENGTH_WORD) {
                 return false;
             }
         }
 
-        if (substring.contains(". ") || substring.contains(", ") || substring.contains("! ") || substring.contains("? ")) {
+        if (text.contains(". ") || text.contains(", ") || text.contains("! ") || text.contains("? ")) {
 //            substring.matches("[.,:!?]+\s");
             isValidate = true;
         }
         while (isValidate) {
-            System.out.println(substring + System.lineSeparator() + "Понятин ли вам этот текст? Y/N");
+            int indexStart = new Random().nextInt(text.length() / 2);
+            String substring = text.substring(indexStart, indexStart + (int) Math.sqrt(text.length()));
+            System.out.println(substring + System.lineSeparator() + "Понятен ли вам этот текст? Y/N");
 
             String answer = scanner.nextLine();
 
