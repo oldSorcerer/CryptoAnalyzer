@@ -12,7 +12,7 @@ public class EncryptedDecrypted {
 
     public void encryptedDecrypted(boolean flag) throws IOException {
 
-        System.out.println("Введите путь к файлу для его" + (flag ? "зашифровки" : "расшифровки"));
+        System.out.println("Введите путь к файлу для его " + (flag ? "зашифровки" : "расшифровки"));
         String path = scanner.nextLine();
 
         System.out.println("Введите ключ:");
@@ -31,5 +31,4 @@ public class EncryptedDecrypted {
         System.out.println("Содержимое файла " + newPath.getFileName() + (flag ? " зашифровано" : " расшифровано") +
                 System.lineSeparator());
     }
-
 }
