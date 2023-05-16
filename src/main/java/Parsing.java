@@ -32,7 +32,7 @@ public class Parsing {
             System.out.println("Размер файла статистики недостаточен для расшифровки, необходим файл большей длины чем зашифрованный" + System.lineSeparator());
         }
         try (BufferedReader reader = Files.newBufferedReader(Paths.get(pathEncrypted));
-             BufferedWriter writer = Files.newBufferedWriter(parsing)) { // decryption
+             BufferedWriter writer = Files.newBufferedWriter(parsing)) {
             while (reader.ready()) {
                 StringBuilder builder = new StringBuilder();
                 String string = reader.readLine();
