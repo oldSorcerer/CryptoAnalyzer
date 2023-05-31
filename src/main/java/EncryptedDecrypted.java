@@ -1,32 +1,26 @@
-import java.io.BufferedReader;
-import java.io.BufferedWriter;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 
 public class EncryptedDecrypted {
 
-    private final CaesarCipher cesarCipher = new CaesarCipher();
+    private final CaesarCipher caesar = new CaesarCipher();
 
     public void encryptedDecrypted(boolean flag) throws IOException {
 
-        ConsoleHelper.writeMessage("Введите путь к файлу для его " + (flag ? "зашифровки" : "расшифровки"));
-        String path = ConsoleHelper.readString();
+        Util.writeMessage("Введите путь к файлу для его " + (flag ? "зашифровки" : "расшифровки"));
+        String path = Util.readString();
 
         System.out.println("Введите ключ:");
-        int key = ConsoleHelper.readInt();
+        int key = Util.readInt();
 
-        Path newPath = PathHelper.buildFileName(path, flag ? "_encrypted" : "_decrypted");
+        Path newPath = Util.buildFileName(path, flag ? "_encrypted" : "_decrypted");
 
-        try (BufferedReader reader = Files.newBufferedReader(Path.of(path));
-             BufferedWriter writer = Files.newBufferedWriter(newPath)) {
-            while (reader.ready()) {
-                String string = reader.readLine();
-                String encryptedDecrypted = flag ? cesarCipher.encrypt(string, key) : cesarCipher.decrypt(string, key);
-                writer.write(encryptedDecrypted + System.lineSeparator());
-            }
-        }
-        ConsoleHelper.writeMessage("Содержимое файла " + newPath.getFileName() + (flag ? " зашифровано" : " расшифровано") +
+        String content = Files.readString(Path.of(path));
+        String encryptedDecrypted = flag ? caesar.encrypt(content, key) : caesar.decrypt(content, key);
+        Files.writeString(newPath, encryptedDecrypted);
+
+        Util.writeMessage("Содержимое файла " + newPath.getFileName() + (flag ? " зашифровано" : " расшифровано") +
                 System.lineSeparator());
     }
 }

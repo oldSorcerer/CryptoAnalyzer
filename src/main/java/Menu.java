@@ -5,7 +5,7 @@ public class Menu {
     public static void main(String[] args) throws IOException {
 
         while (true) {
-            ConsoleHelper.writeMessage("""
+            Util.writeMessage("""
                     Выберете действие, введя его номер:\s
                     1. Зашифровать текст в файле с помощью ключа.\s
                     2. Расшифровать текст в файле с помощью ключа.\s
@@ -13,7 +13,7 @@ public class Menu {
                     4. Расшифровать текст в файле методом статического перебора.\s
                     5. Выхода из программы""");
 
-            String answer = ConsoleHelper.readString();
+            String answer = Util.readString();
 
             switch (answer) {
                 case ("1") -> new EncryptedDecrypted().encryptedDecrypted(true);
