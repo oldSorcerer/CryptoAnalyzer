@@ -52,11 +52,11 @@ public class Parsing {
                 builder.append(string);
             }
             for (char aChar : builder.toString().toCharArray()) {
-                if (!map.containsKey(aChar)) {
+                /*if (!map.containsKey(aChar)) {
                     map.put(aChar, 1);
                 } else {
                     map.put(aChar, map.get(aChar) + 1);
-                } //map.merge(aChar, 1, Integer::sum);
+                }*/ map.merge(aChar, 1, Integer::sum);
             }
             return map;
         }
