@@ -17,8 +17,7 @@ public class EncryptedDecrypted {
         Path newPath = Util.buildFileName(path, flag ? "_encrypted" : "_decrypted");
 
         String content = Files.readString(Path.of(path));
-        String encryptedDecrypted = flag ? caesar.encrypt(content, key) : caesar.decrypt(content, key);
-        Files.writeString(newPath, encryptedDecrypted);
+        Files.writeString(newPath, flag ? caesar.encrypt(content, key) : caesar.decrypt(content, key));
 
         Util.writeMessage("Содержимое файла " + newPath.getFileName() + (flag ? " зашифровано" : " расшифровано") +
                 System.lineSeparator());
