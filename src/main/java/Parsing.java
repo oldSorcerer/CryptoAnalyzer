@@ -1,11 +1,8 @@
 import java.io.*;
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.nio.file.Paths;
+import java.nio.file.*;
 import java.util.*;
 
 public class Parsing {
-    private final Scanner scanner = new Scanner(System.in);
 
     private final Map<Character, Integer> encrypted = new HashMap<>();
     private final Map<Character, Integer> statistic = new HashMap<>();
@@ -13,11 +10,11 @@ public class Parsing {
 
     public void parse() throws IOException {
 
-        System.out.println("Введите полный путь к файлу, для его расшифровки:");
-        String pathEncrypted = scanner.nextLine();
+        ConsoleHelper.writeMessage("Введите полный путь к файлу, для его расшифровки:");
+        String pathEncrypted = ConsoleHelper.readString();
 
-        System.out.println("Введите полный путь к файлу, для набора статистики:");
-        String pathStatistic = scanner.nextLine();
+        ConsoleHelper.writeMessage("Введите полный путь к файлу, для набора статистики:");
+        String pathStatistic = ConsoleHelper.readString();
 
         Path parsing = PathHelper.buildFileName(pathEncrypted, "_parsing");
 
@@ -29,7 +26,7 @@ public class Parsing {
                 decrypted.put(listEncrypted.get(i).getKey(), listStatistic.get(i).getKey());
             }
         } else {
-            System.out.println("Размер файла статистики недостаточен для расшифровки, необходим файл большей длины чем зашифрованный" + System.lineSeparator());
+            ConsoleHelper.writeMessage("Размер файла статистики недостаточен для расшифровки, необходим файл большей длины чем зашифрованный" + System.lineSeparator());
         }
         try (BufferedReader reader = Files.newBufferedReader(Paths.get(pathEncrypted));
              BufferedWriter writer = Files.newBufferedWriter(parsing)) {
@@ -43,7 +40,7 @@ public class Parsing {
                 writer.write(builder + System.lineSeparator());
             }
         }
-        System.out.println("Содержимое файла расшифровано методом статистического анализа." + System.lineSeparator());
+        ConsoleHelper.writeMessage("Содержимое файла расшифровано методом статистического анализа." + System.lineSeparator());
     }
 
     private Map<Character, Integer> fillMapValues(Map<Character, Integer> map, String path) throws IOException {

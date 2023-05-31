@@ -7,16 +7,15 @@ import java.util.Scanner;
 
 public class EncryptedDecrypted {
 
-    private final Scanner scanner = new Scanner(System.in);
     private final CaesarCipher cesarCipher = new CaesarCipher();
 
     public void encryptedDecrypted(boolean flag) throws IOException {
 
-        System.out.println("Введите путь к файлу для его " + (flag ? "зашифровки" : "расшифровки"));
-        String path = scanner.nextLine();
+        ConsoleHelper.writeMessage("Введите путь к файлу для его " + (flag ? "зашифровки" : "расшифровки"));
+        String path = ConsoleHelper.readString();
 
         System.out.println("Введите ключ:");
-        int key = Integer.parseInt(scanner.nextLine());
+        int key = ConsoleHelper.readInt();
 
         Path newPath = PathHelper.buildFileName(path, flag ? "_encrypted" : "_decrypted");
 
@@ -28,7 +27,7 @@ public class EncryptedDecrypted {
                 writer.write(encryptedDecrypted + System.lineSeparator());
             }
         }
-        System.out.println("Содержимое файла " + newPath.getFileName() + (flag ? " зашифровано" : " расшифровано") +
+        ConsoleHelper.writeMessage("Содержимое файла " + newPath.getFileName() + (flag ? " зашифровано" : " расшифровано") +
                 System.lineSeparator());
     }
 }
