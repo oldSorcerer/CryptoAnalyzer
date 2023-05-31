@@ -7,14 +7,13 @@ import java.util.*;
 
 public class Bruteforce {
 
-    private final Scanner scanner = new Scanner(System.in);
     private final CaesarCipher caesarCipher = new CaesarCipher();
     private static final int MAX_LENGTH_WORD = 28;
 
     public void bruteforce() throws IOException {
 
-        System.out.println("Введите полный путь к файлу, для его расшифровки:");
-        String path = scanner.nextLine();
+        ConsoleHelper.writeMessage("Введите полный путь к файлу, для его расшифровки:");
+        String path = ConsoleHelper.readString();
 
         Path bruteforce = PathHelper.buildFileName(path, "_bruteforce");
 
@@ -36,14 +35,14 @@ public class Bruteforce {
                         String encrypt = caesarCipher.decrypt(string, i);
                         writer.write(encrypt + System.lineSeparator());
                     }
-                    System.out.println("Содержимое файла расшифровано, методом перебора ключей. Ключ расшифровки K = " + i);
+                    ConsoleHelper.writeMessage("Содержимое файла расшифровано, методом перебора ключей. Ключ расшифровки K = " + i);
                     break;
                 }
             }
         }
     }
 
-    private boolean isValidateText(String text) {
+    private boolean isValidateText(String text) throws IOException {
 
         boolean isValidate = false;
 
@@ -60,16 +59,16 @@ public class Bruteforce {
         while (isValidate) {
             int indexStart = new Random().nextInt(text.length() / 2);
             String substring = text.substring(indexStart, indexStart + (int) Math.sqrt(text.length()));
-            System.out.println(substring + System.lineSeparator() + "Понятен ли вам этот текст? Y/N");
+            ConsoleHelper.writeMessage(substring + System.lineSeparator() + "Понятен ли вам этот текст? Y/N");
 
-            String answer = scanner.nextLine();
+            String answer = ConsoleHelper.readString();
 
             if (answer.equalsIgnoreCase("Y")) {
                 return true;
             } else if (answer.equalsIgnoreCase("N")) {
                 isValidate = false;
             } else {
-                System.out.println("выберете только между Y/N");
+                ConsoleHelper.writeMessage("выберете только между Y/N");
             }
         }
         return false;

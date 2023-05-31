@@ -4,14 +4,17 @@ import java.io.InputStreamReader;
 
 public class ConsoleHelper {
 
-    private static final BufferedReader console = new BufferedReader(new InputStreamReader(System.in));
+    private static final BufferedReader CONSOLE = new BufferedReader(new InputStreamReader(System.in));
+
+    private ConsoleHelper() {
+    }
 
     public static void writeMessage(String message) {
         System.out.println(message);
     }
 
     public static String readString() throws IOException {
-        return console.readLine();
+        return CONSOLE.readLine();
     }
 
     public static int readInt() throws IOException {
