@@ -1,4 +1,6 @@
-import java.io.IOException;
+
+import lombok.SneakyThrows;
+
 import java.nio.file.Files;
 import java.nio.file.Path;
 
@@ -6,7 +8,8 @@ public class EncryptedDecrypted {
 
     private final CaesarCipher caesar = new CaesarCipher();
 
-    public void encryptedDecrypted(boolean flag) throws IOException {
+    @SneakyThrows
+    public void encryptedDecrypted(boolean flag) {
 
         Util.writeMessage("Введите путь к файлу для его " + (flag ? "зашифровки" : "расшифровки"));
         String path = Util.readString();

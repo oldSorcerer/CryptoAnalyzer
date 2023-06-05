@@ -1,4 +1,5 @@
-import java.io.IOException;
+import lombok.SneakyThrows;
+
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.*;
@@ -8,7 +9,8 @@ public class Bruteforce {
     private final CaesarCipher caesar = new CaesarCipher();
     private static final int MAX_LENGTH_WORD = 28;
 
-    public void bruteforce() throws IOException {
+    @SneakyThrows
+    public void bruteforce()  {
 
         Util.writeMessage("Введите полный путь к файлу, для его расшифровки:");
         String path = Util.readString();
@@ -27,7 +29,7 @@ public class Bruteforce {
         }
     }
 
-    private boolean isValidateText(String text) throws IOException {
+    private boolean isValidateText(String text) {
 
         boolean isValidate = false;
 

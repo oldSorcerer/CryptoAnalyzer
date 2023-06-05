@@ -1,8 +1,9 @@
-import java.io.*;
+import lombok.SneakyThrows;
 
 public class Menu {
 
-    public static void main(String[] args) throws IOException {
+    @SneakyThrows
+    public static void main(String[] args) {
 
         while (true) {
             Util.writeMessage("""
