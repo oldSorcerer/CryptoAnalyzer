@@ -1,5 +1,6 @@
+import lombok.SneakyThrows;
+
 import java.io.BufferedReader;
-import java.io.IOException;
 import java.io.InputStreamReader;
 import java.nio.file.Path;
 
@@ -14,11 +15,12 @@ public class Util {
         System.out.println(message);
     }
 
-    public static String readString() throws IOException {
+    @SneakyThrows
+    public static String readString() {
         return CONSOLE.readLine();
     }
 
-    public static int readInt() throws IOException {
+    public static int readInt() {
         return Integer.parseInt(readString().trim());
     }
 

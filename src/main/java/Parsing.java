@@ -1,4 +1,5 @@
-import java.io.*;
+import lombok.SneakyThrows;
+
 import java.nio.file.*;
 import java.util.*;
 
@@ -8,7 +9,8 @@ public class Parsing {
     private final Map<Character, Integer> statistic = new HashMap<>();
     private final Map<Character, Character> decrypted = new HashMap<>();
 
-    public void parse() throws IOException {
+    @SneakyThrows
+    public void parse()  {
 
         Util.writeMessage("Введите полный путь к файлу, для его расшифровки:");
         String pathEncrypted = Util.readString();
@@ -39,7 +41,8 @@ public class Parsing {
         Util.writeMessage("Содержимое файла расшифровано методом статистического анализа." + System.lineSeparator());
     }
 
-    private List<Map.Entry<Character, Integer>> fillMapAndConvertToList(Map<Character, Integer> map, String path) throws IOException {
+    @SneakyThrows
+    private List<Map.Entry<Character, Integer>> fillMapAndConvertToList(Map<Character, Integer> map, String path) {
 
         for (char aChar : Files.readString(Path.of(path)).toCharArray()) {
             map.merge(aChar, 1, Integer::sum);
