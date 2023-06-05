@@ -18,8 +18,8 @@ public class Parsing {
 
         Path parsing = Util.buildFileName(pathEncrypted, "_parsing");
 
-        List<Map.Entry<Character, Integer>> listEncrypted = mapToList(fillMapValues(encrypted, pathEncrypted));
-        List<Map.Entry<Character, Integer>> listStatistic = mapToList(fillMapValues(statistic, pathStatistic));
+        List<Map.Entry<Character, Integer>> listEncrypted = fillMapAndConvertToList(encrypted, pathEncrypted);
+        List<Map.Entry<Character, Integer>> listStatistic = fillMapAndConvertToList(statistic, pathStatistic);
 
         if (listEncrypted.size() <= listStatistic.size()) {
             for (int i = 0; i < listEncrypted.size(); i++) {
@@ -28,44 +28,22 @@ public class Parsing {
         } else {
             Util.writeMessage("Размер файла статистики недостаточен для расшифровки, необходим файл большей длины чем зашифрованный" + System.lineSeparator());
         }
-        try (BufferedReader reader = Files.newBufferedReader(Paths.get(pathEncrypted));
-             BufferedWriter writer = Files.newBufferedWriter(parsing)) {
-            while (reader.ready()) {
-                StringBuilder builder = new StringBuilder();
-                String string = reader.readLine();
-                for (char encryptedChar : string.toCharArray()) {
-                    Character decryptedChar = decrypted.get(encryptedChar);
-                    builder.append(decryptedChar);
-                }
-                writer.write(builder + System.lineSeparator());
-            }
+
+        String content = Files.readString(Path.of(pathEncrypted));
+        StringBuilder builder = new StringBuilder();
+        for (char encryptedChar : content.toCharArray()) {
+            builder.append(decrypted.get(encryptedChar));
         }
+        Files.writeString(parsing, builder);
+
         Util.writeMessage("Содержимое файла расшифровано методом статистического анализа." + System.lineSeparator());
     }
 
-    private Map<Character, Integer> fillMapValues(Map<Character, Integer> map, String path) throws IOException {
+    private List<Map.Entry<Character, Integer>> fillMapAndConvertToList(Map<Character, Integer> map, String path) throws IOException {
 
-        StringBuilder builder = new StringBuilder();
-        try (BufferedReader reader = Files.newBufferedReader(Paths.get(path))) {
-            while (reader.ready()) {
-                String string = reader.readLine();
-                builder.append(string);
-            }
-            for (char aChar : builder.toString().toCharArray()) {
-                map.merge(aChar, 1, Integer::sum);
-            }
-            return map;
+        for (char aChar : Files.readString(Path.of(path)).toCharArray()) {
+            map.merge(aChar, 1, Integer::sum);
         }
-    }
-
-    private List<Map.Entry<Character, Integer>> mapToList(Map<Character, Integer> map) {
-        List<Map.Entry<Character, Integer>> list = new ArrayList<>(map.entrySet());
-
-        Comparator<Map.Entry<Character, Integer>> comparator = Map.Entry.comparingByValue();
-
-        list.sort(comparator.reversed());
-
-        return list;
-//        map.entrySet().stream().sorted(Map.Entry.<Character, Integer>comparingByValue().reversed()).forEach(System.out::println);
+        return map.entrySet().stream().sorted(Map.Entry.<Character, Integer>comparingByValue().reversed()).toList();
     }
 }
