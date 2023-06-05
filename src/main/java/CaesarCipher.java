@@ -1,8 +1,8 @@
 public class CaesarCipher {
 
-    private static final String ALPHABET =   "abcdefghijklmnopqrstuvwxyz" + "ABCDEFGHIJKLMNOPQRSTUVWXYZ" +
-                        "абвгдеёжзийклмнопрстуфхцчшщъыьэюя" + "АБВГДЕЁЖЗИЙКЛМНОПРСТУФХЦЧШЩЪЫЬЭЮЯ" +
-                        ".,\":!? +-*/\\@#$%^&(){}[];'|`~=_©«»—" + "0123456789";
+    private static final String ALPHABET = "abcdefghijklmnopqrstuvwxyz" + "ABCDEFGHIJKLMNOPQRSTUVWXYZ" +
+            "абвгдеёжзийклмнопрстуфхцчшщъыьэюя" + "АБВГДЕЁЖЗИЙКЛМНОПРСТУФХЦЧШЩЪЫЬЭЮЯ" +
+            ".,\":!? +-*/\\@#$%^&(){}[];'|`~=_©«»—" + "0123456789";
 
     public String encrypt(String message, int key) {
         StringBuilder builder = new StringBuilder();
@@ -10,7 +10,7 @@ public class CaesarCipher {
             int index = ALPHABET.indexOf(aChar);
             if (index >= 0) {
                 int newIndex = (index + key) % ALPHABET.length();
-                char charAt = newIndex < 0 ? ALPHABET.charAt(ALPHABET.length() + newIndex) : ALPHABET.charAt(newIndex);
+                char charAt = ALPHABET.charAt(newIndex < 0 ? ALPHABET.length() + newIndex : newIndex);
                 builder.append(charAt);
             }
         }

@@ -24,7 +24,6 @@ public class Bruteforce {
                 break;
             }
         }
-
     }
 
     private boolean isValidateText(String text) throws IOException {
