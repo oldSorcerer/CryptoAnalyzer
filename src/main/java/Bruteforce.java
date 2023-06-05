@@ -20,11 +20,11 @@ public class Bruteforce {
             String decrypt = caesar.decrypt(content, i);
             if (isValidateText(decrypt)) {
                 Files.writeString(bruteforce, decrypt);
-                Util.writeMessage("Содержимое файла расшифровано, методом перебора ключей. Ключ расшифровки K = " + i);
+                Util.writeMessage("Содержимое расшифровано и сохранено в файл " + bruteforce.getFileName());
+                Util.writeMessage("Ключ расшифровки: " + i + System.lineSeparator());
                 break;
             }
         }
-
     }
 
     private boolean isValidateText(String text) throws IOException {
