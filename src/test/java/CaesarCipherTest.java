@@ -4,7 +4,7 @@ import static org.junit.jupiter.api.Assertions.*;
 
 public class CaesarCipherTest {
 
-    public CaesarCipher caesar = new CaesarCipher();
+    private final CaesarCipher caesar = new CaesarCipher();
 
     private final String stringNotEncrypt = "Hello World!";
     private final String stringEncrypt = "Khoor*Zruog+";
