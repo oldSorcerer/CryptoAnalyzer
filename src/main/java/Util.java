@@ -16,7 +16,7 @@ public class Util {
         System.out.println(message);
     }
 
-
+    @SneakyThrows
     public static String readString() {
         String string = "";
         try {
