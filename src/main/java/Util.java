@@ -18,11 +18,11 @@ public class Util {
 
     @SneakyThrows
     public static String readString() {
-        String string = "";
+        String string;
         try {
-             CONSOLE.readLine();
+             string = CONSOLE.readLine();
         } catch (IOException e) {
-            System.out.println("Произошла ошибка при попытке ввода текста. Попробуйте еще раз.");
+            writeMessage("Произошла ошибка при попытке ввода текста. Попробуйте еще раз.");
             string = readString();
         }
         return string;
@@ -33,7 +33,7 @@ public class Util {
         try {
             number = Integer.parseInt(readString());
         } catch (NumberFormatException e) {
-            System.out.println("Произошла ошибка при попытке ввода числа. Попробуйте еще раз.");
+            writeMessage("Произошла ошибка при попытке ввода числа. Попробуйте еще раз.");
             number = readInt();
         }
         return number;
