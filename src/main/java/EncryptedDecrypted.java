@@ -22,7 +22,7 @@ public class EncryptedDecrypted {
         String content = Files.readString(Path.of(path));
         Files.writeString(newPath, flag ? caesar.encrypt(content, key) : caesar.decrypt(content, key));
 
-        Util.writeMessage("Содержимое файла " + newPath.getFileName() + (flag ? " зашифровано" : " расшифровано") +
+        Util.writeMessage("Содержимое файла " + newPath + (flag ? " зашифровано" : " расшифровано") +
                 System.lineSeparator());
     }
 }
