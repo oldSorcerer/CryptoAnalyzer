@@ -18,8 +18,8 @@ public class Parsing {
 
         Path parsing = PathHelper.buildFileName(pathEncrypted, "_parsing");
 
-        List<Map.Entry<Character, Integer>> listEncrypted = mapToList(fillMapValues(encrypted, pathEncrypted));
-        List<Map.Entry<Character, Integer>> listStatistic = mapToList(fillMapValues(statistic, pathStatistic));
+        List<Map.Entry<Character, Integer>> listEncrypted = mapToList(fillMapWithValues(encrypted, pathEncrypted));
+        List<Map.Entry<Character, Integer>> listStatistic = mapToList(fillMapWithValues(statistic, pathStatistic));
 
         if (listEncrypted.size() <= listStatistic.size()) {
             for (int i = 0; i < listEncrypted.size(); i++) {
@@ -43,7 +43,7 @@ public class Parsing {
         ConsoleHelper.writeMessage("Содержимое файла расшифровано методом статистического анализа." + System.lineSeparator());
     }
 
-    private Map<Character, Integer> fillMapValues(Map<Character, Integer> map, String path) throws IOException {
+    private Map<Character, Integer> fillMapWithValues(Map<Character, Integer> map, String path) throws IOException {
 
         StringBuilder builder = new StringBuilder();
         try (BufferedReader reader = Files.newBufferedReader(Paths.get(path))) {
