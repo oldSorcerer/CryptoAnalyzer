@@ -19,8 +19,7 @@ public class Encrypted {
         String pathEncrypted = scanner.nextLine();
 
         try (var reader = Files.newBufferedReader(Paths.get(pathNotEncrypted));
-             var writer = Files.newBufferedWriter(Paths.get(pathEncrypted))
-        ) {
+             var writer = Files.newBufferedWriter(Paths.get(pathEncrypted))) {
             while (reader.ready()) {
                 String string = reader.readLine();
                 String encryptString = caesarCipher.encrypt(string, key);
