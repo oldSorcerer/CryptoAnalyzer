@@ -1,9 +1,10 @@
+import lombok.AccessLevel;
+import lombok.NoArgsConstructor;
+
 import java.nio.file.Path;
 
+@NoArgsConstructor(access = AccessLevel.PRIVATE)
 public class PathHelper {
-
-    private PathHelper() {
-    }
 
     public static Path buildFileName(String path, String suffix) {
         Path fullPath = Path.of(path);
