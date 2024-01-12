@@ -13,12 +13,12 @@ public class Bruteforce {
     public void bruteforce() throws IOException {
 
         ConsoleHelper.writeMessage("Введите полный путь к файлу, для его расшифровки:");
-        String path = ConsoleHelper.readString();
+        String src = ConsoleHelper.readString();
 
-        Path bruteforce = PathHelper.buildFileName(path, "_bruteforce");
+        Path dest = PathHelper.buildFileName(src, "_bruteforce");
 
-        try (BufferedReader reader = Files.newBufferedReader(Path.of(path));
-             BufferedWriter writer = Files.newBufferedWriter(bruteforce)) {
+        try (BufferedReader reader = Files.newBufferedReader(Path.of(src));
+             BufferedWriter writer = Files.newBufferedWriter(dest)) {
 
             StringBuilder builder = new StringBuilder();
             List<String> list = new ArrayList<>();
