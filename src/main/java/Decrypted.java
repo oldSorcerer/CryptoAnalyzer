@@ -10,16 +10,16 @@ public class Decrypted {
     public void decrypted() throws IOException {
 
         System.out.println("Введите полный путь к файлу, для его расшифровки:");
-        String pathEncryptedFile = scanner.nextLine();
+        String src = scanner.nextLine();
 
         System.out.println("Введите ключ шифрования:");
         int key = Integer.parseInt(scanner.nextLine());
 
         System.out.println("Введите полный путь к файлу, в который записать расшифрованый текст:");
-        String pathNotEncryptedFile = scanner.nextLine();
+        String dst = scanner.nextLine();
 
-        try (var reader = Files.newBufferedReader(Paths.get(pathEncryptedFile));
-             var writer = Files.newBufferedWriter(Paths.get(pathNotEncryptedFile))
+        try (var reader = Files.newBufferedReader(Paths.get(src));
+             var writer = Files.newBufferedWriter(Paths.get(dst))
         ) {
             while (reader.ready()) {
                 String string = reader.readLine();

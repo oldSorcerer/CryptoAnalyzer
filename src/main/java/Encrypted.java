@@ -10,16 +10,16 @@ public class Encrypted {
     public void encrypted() throws IOException {
 
         System.out.println("Введите полный путь к файлу, для его зашифровки:");
-        String pathNotEncrypted = scanner.nextLine();
+        String src = scanner.nextLine();
 
         System.out.println("Введите ключ шифрования:");
         int key = Integer.parseInt(scanner.nextLine());
 
         System.out.println("Введите полный путь к файлу, в который записать зашифрованый текст:");
-        String pathEncrypted = scanner.nextLine();
+        String dst = scanner.nextLine();
 
-        try (var reader = Files.newBufferedReader(Paths.get(pathNotEncrypted));
-             var writer = Files.newBufferedWriter(Paths.get(pathEncrypted))) {
+        try (var reader = Files.newBufferedReader(Paths.get(src));
+             var writer = Files.newBufferedWriter(Paths.get(dst))) {
             while (reader.ready()) {
                 String string = reader.readLine();
                 String encryptString = caesarCipher.encrypt(string, key);
