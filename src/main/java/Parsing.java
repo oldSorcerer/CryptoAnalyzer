@@ -13,14 +13,14 @@ public class Parsing {
     public void parse()  {
 
         Util.writeMessage("Введите полный путь к файлу, для его расшифровки:");
-        String pathEncrypted = Util.readString();
+        String src = Util.readString();
 
         Util.writeMessage("Введите полный путь к файлу, для набора статистики:");
         String pathStatistic = Util.readString();
 
-        Path parsing = Util.buildFileName(pathEncrypted, "_parsing");
+        Path dst = Util.buildFileName(src, "_parsing");
 
-        List<Map.Entry<Character, Integer>> listEncrypted = fillMapAndConvertToList(encrypted, pathEncrypted);
+        List<Map.Entry<Character, Integer>> listEncrypted = fillMapAndConvertToList(encrypted, src);
         List<Map.Entry<Character, Integer>> listStatistic = fillMapAndConvertToList(statistic, pathStatistic);
 
         if (listEncrypted.size() <= listStatistic.size()) {
@@ -31,12 +31,12 @@ public class Parsing {
             Util.writeMessage("Размер файла статистики недостаточен для расшифровки, необходим файл большей длины чем зашифрованный" + System.lineSeparator());
         }
 
-        String content = Files.readString(Path.of(pathEncrypted));
+        String content = Files.readString(Path.of(src));
         StringBuilder builder = new StringBuilder();
         for (char encryptedChar : content.toCharArray()) {
             builder.append(decrypted.get(encryptedChar));
         }
-        Files.writeString(parsing, builder);
+        Files.writeString(dst, builder);
 
         Util.writeMessage("Содержимое файла расшифровано методом статистического анализа." + System.lineSeparator());
     }
