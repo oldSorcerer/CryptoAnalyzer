@@ -13,16 +13,16 @@ public class Bruteforce {
     public void bruteforce()  {
 
         Util.writeMessage("Введите полный путь к файлу, для его расшифровки:");
-        String path = Util.readString();
+        String src = Util.readString();
 
-        Path bruteforce = Util.buildFileName(path, "_bruteforce");
+        Path dst = Util.buildFileName(src, "_bruteforce");
 
-        String content = Files.readString(Path.of(path));
+        String content = Files.readString(Path.of(src));
         for (int i = 0; i < caesar.alphabetLength(); i++) {
             String decrypt = caesar.decrypt(content, i);
             if (isValidateText(decrypt)) {
-                Files.writeString(bruteforce, decrypt);
-                Util.writeMessage("Содержимое расшифровано и сохранено в файл " + bruteforce.getFileName());
+                Files.writeString(dst, decrypt);
+                Util.writeMessage("Содержимое расшифровано и сохранено в файл " + dst.getFileName());
                 Util.writeMessage("Ключ расшифровки: " + i + System.lineSeparator());
                 break;
             }

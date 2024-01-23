@@ -41,7 +41,7 @@ public class Util {
 
     public static Path buildFileName(String path, String suffix) {
         Path fullPath = Path.of(path);
-        Path directory = fullPath.getParent();
+        Path parent = fullPath.getParent();
         String fileName = fullPath.getFileName().toString();
         String newFileName;
         if (fileName.contains(".")) {
@@ -50,6 +50,6 @@ public class Util {
         } else {
             newFileName = fileName + suffix;
         }
-        return directory.resolve(Path.of(newFileName));
+        return parent.resolve(newFileName);
     }
 }
