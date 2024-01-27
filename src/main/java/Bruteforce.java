@@ -7,7 +7,7 @@ import java.util.*;
 public class Bruteforce {
 
     private final CaesarCipher caesar = new CaesarCipher();
-    private static final int MAX_LENGTH_WORD = 28;
+    private static final int MAX_WORD_LENGTH = 28;
 
     @SneakyThrows
     public void bruteforce()  {
@@ -34,7 +34,7 @@ public class Bruteforce {
         boolean isValidate = false;
 
         for (String word : text.split(" ")) {
-            if (word.length() > MAX_LENGTH_WORD) {
+            if (word.length() > MAX_WORD_LENGTH) {
                 return false;
             }
         }
