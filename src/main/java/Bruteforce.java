@@ -15,10 +15,10 @@ public class Bruteforce {
         ConsoleHelper.writeMessage("Введите полный путь к файлу, для его расшифровки:");
         String src = ConsoleHelper.readString();
 
-        Path dest = PathHelper.buildFileName(src, "_bruteforce");
+        Path dst = PathHelper.buildFileName(src, "_bruteforce");
 
         try (BufferedReader reader = Files.newBufferedReader(Path.of(src));
-             BufferedWriter writer = Files.newBufferedWriter(dest)) {
+             BufferedWriter writer = Files.newBufferedWriter(dst)) {
 
             StringBuilder builder = new StringBuilder();
             List<String> list = new ArrayList<>();
