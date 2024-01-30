@@ -5,8 +5,6 @@ import java.util.*;
 
 public class Parsing {
 
-    private final Map<Character, Integer> encrypted = new HashMap<>();
-    private final Map<Character, Integer> statistic = new HashMap<>();
     private final Map<Character, Character> decrypted = new HashMap<>();
 
     @SneakyThrows
@@ -20,8 +18,8 @@ public class Parsing {
 
         Path dst = Util.buildFileName(src, "_parsing");
 
-        List<Map.Entry<Character, Integer>> listEncrypted = fillMapAndConvertToList(encrypted, src);
-        List<Map.Entry<Character, Integer>> listStatistic = fillMapAndConvertToList(statistic, pathStatistic);
+        List<Map.Entry<Character, Integer>> listEncrypted = fillMapAndConvertToList(new HashMap<>(), src);
+        List<Map.Entry<Character, Integer>> listStatistic = fillMapAndConvertToList(new HashMap<>(), pathStatistic);
 
         if (listEncrypted.size() <= listStatistic.size()) {
             for (int i = 0; i < listEncrypted.size(); i++) {
