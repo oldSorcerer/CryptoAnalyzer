@@ -4,8 +4,6 @@ import java.util.*;
 
 public class Parsing {
 
-    private final Map<Character, Integer> encrypted = new HashMap<>();
-    private final Map<Character, Integer> statistic = new HashMap<>();
     private final Map<Character, Character> decrypted = new HashMap<>();
 
     public void parse() throws IOException {
@@ -18,8 +16,8 @@ public class Parsing {
 
         Path parsing = PathHelper.buildFileName(pathEncrypted, "_parsing");
 
-        List<Map.Entry<Character, Integer>> listEncrypted = mapToList(fillMapWithValues(encrypted, pathEncrypted));
-        List<Map.Entry<Character, Integer>> listStatistic = mapToList(fillMapWithValues(statistic, pathStatistic));
+        List<Map.Entry<Character, Integer>> listEncrypted = mapToList(fillMapWithValues(new HashMap<>(), pathEncrypted));
+        List<Map.Entry<Character, Integer>> listStatistic = mapToList(fillMapWithValues(new HashMap<>(), pathStatistic));
 
         if (listEncrypted.size() <= listStatistic.size()) {
             for (int i = 0; i < listEncrypted.size(); i++) {
