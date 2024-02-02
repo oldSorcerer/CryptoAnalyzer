@@ -12,10 +12,10 @@ public class Bruteforce {
 
     public void bruteforce() throws IOException {
 
-        ConsoleHelper.writeMessage("Введите полный путь к файлу, для его расшифровки:");
-        String src = ConsoleHelper.readString();
+        Util.writeMessage("Введите полный путь к файлу, для его расшифровки:");
+        String src = Util.readString();
 
-        Path dst = PathHelper.buildFileName(src, "_bruteforce");
+        Path dst = Util.buildFileName(src, "_bruteforce");
 
         try (BufferedReader reader = Files.newBufferedReader(Path.of(src));
              BufferedWriter writer = Files.newBufferedWriter(dst)) {
@@ -35,7 +35,7 @@ public class Bruteforce {
                         String encrypt = caesarCipher.decrypt(string, i);
                         writer.write(encrypt + System.lineSeparator());
                     }
-                    ConsoleHelper.writeMessage("Содержимое файла расшифровано, методом перебора ключей. Ключ расшифровки K = " + i);
+                    Util.writeMessage("Содержимое файла расшифровано, методом перебора ключей. Ключ расшифровки K = " + i);
                     break;
                 }
             }
@@ -59,16 +59,16 @@ public class Bruteforce {
         while (isValidate) {
             int indexStart = new Random().nextInt(text.length() / 2);
             String substring = text.substring(indexStart, indexStart + (int) Math.sqrt(text.length()));
-            ConsoleHelper.writeMessage(substring + System.lineSeparator() + "Понятен ли вам этот текст? Y/N");
+            Util.writeMessage(substring + System.lineSeparator() + "Понятен ли вам этот текст? Y/N");
 
-            String answer = ConsoleHelper.readString();
+            String answer = Util.readString();
 
             if (answer.equalsIgnoreCase("Y")) {
                 return true;
             } else if (answer.equalsIgnoreCase("N")) {
                 isValidate = false;
             } else {
-                ConsoleHelper.writeMessage("выберете только между Y/N");
+                Util.writeMessage("выберете только между Y/N");
             }
         }
         return false;

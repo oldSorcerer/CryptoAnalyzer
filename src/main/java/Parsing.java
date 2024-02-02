@@ -8,13 +8,13 @@ public class Parsing {
 
     public void parse() throws IOException {
 
-        ConsoleHelper.writeMessage("Введите полный путь к файлу, для его расшифровки:");
-        String pathEncrypted = ConsoleHelper.readString();
+        Util.writeMessage("Введите полный путь к файлу, для его расшифровки:");
+        String pathEncrypted = Util.readString();
 
-        ConsoleHelper.writeMessage("Введите полный путь к файлу, для набора статистики:");
-        String pathStatistic = ConsoleHelper.readString();
+        Util.writeMessage("Введите полный путь к файлу, для набора статистики:");
+        String pathStatistic = Util.readString();
 
-        Path parsing = PathHelper.buildFileName(pathEncrypted, "_parsing");
+        Path parsing = Util.buildFileName(pathEncrypted, "_parsing");
 
         List<Map.Entry<Character, Integer>> listEncrypted = mapToList(fillMapWithValues(new HashMap<>(), pathEncrypted));
         List<Map.Entry<Character, Integer>> listStatistic = mapToList(fillMapWithValues(new HashMap<>(), pathStatistic));
@@ -24,7 +24,7 @@ public class Parsing {
                 decrypted.put(listEncrypted.get(i).getKey(), listStatistic.get(i).getKey());
             }
         } else {
-            ConsoleHelper.writeMessage("Размер файла статистики недостаточен для расшифровки, необходим файл большей длины чем зашифрованный" + System.lineSeparator());
+            Util.writeMessage("Размер файла статистики недостаточен для расшифровки, необходим файл большей длины чем зашифрованный" + System.lineSeparator());
         }
         try (BufferedReader reader = Files.newBufferedReader(Paths.get(pathEncrypted));
              BufferedWriter writer = Files.newBufferedWriter(parsing)) {
@@ -38,7 +38,7 @@ public class Parsing {
                 writer.write(builder + System.lineSeparator());
             }
         }
-        ConsoleHelper.writeMessage("Содержимое файла расшифровано методом статистического анализа." + System.lineSeparator());
+        Util.writeMessage("Содержимое файла расшифровано методом статистического анализа." + System.lineSeparator());
     }
 
     private Map<Character, Integer> fillMapWithValues(Map<Character, Integer> map, String path) throws IOException {
