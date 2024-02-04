@@ -29,15 +29,15 @@ public class CaesarCipher {
         return ALPHABET.length();
     }
 
-    public static void main(String[] args) throws IOException {
-        Properties properties = new Properties();
-        properties.load(new FileReader("src/main/resources/alphabet.properties", StandardCharsets.UTF_8));
-
-
-        String alphabetEn = properties.getProperty("alphabet.en");
-        String alphabetRu = properties.getProperty("alphabet.ru");
-        String property = properties.getProperty("alphabet.symbols");
-        String property2 = properties.getProperty("alphabet.digit");
-        System.out.println(alphabetEn + alphabetEn.toUpperCase() + alphabetRu + alphabetRu.toUpperCase() + property + property2);
-    }
+//    public static void main(String[] args) throws IOException {
+//        Properties properties = new Properties();
+//        properties.load(new FileReader("src/main/resources/alphabet.properties", StandardCharsets.UTF_8));
+//
+//
+//        String alphabetEn = properties.getProperty("alphabet.en");
+//        String alphabetRu = properties.getProperty("alphabet.ru");
+//        String property = properties.getProperty("alphabet.symbols");
+//        String property2 = properties.getProperty("alphabet.digit");
+//        System.out.println(alphabetEn + alphabetEn.toUpperCase() + alphabetRu + alphabetRu.toUpperCase() + property + property2);
+//    }
 }
