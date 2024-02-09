@@ -32,8 +32,9 @@ public class Bruteforce {
                 String decrypt = caesarCipher.decrypt(builder.toString(), i);
                 if (isValidateText(decrypt)) {
                     for (String string : list) {
-                        String encrypt = caesarCipher.decrypt(string, i);
-                        writer.write(encrypt + System.lineSeparator());
+                        String str = caesarCipher.decrypt(string, i);
+                        writer.write(str);
+                        writer.newLine();
                     }
                     Util.writeMessage("Содержимое файла расшифровано, методом перебора ключей. Ключ расшифровки K = " + i);
                     break;
