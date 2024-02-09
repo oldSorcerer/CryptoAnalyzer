@@ -16,32 +16,34 @@ public class Parsing {
 
         Path parsing = Util.buildFileName(pathEncrypted, "_parsing");
 
-        List<Map.Entry<Character, Integer>> listEncrypted = mapToList(fillMapWithValues(new HashMap<>(), pathEncrypted));
-        List<Map.Entry<Character, Integer>> listStatistic = mapToList(fillMapWithValues(new HashMap<>(), pathStatistic));
+        List<Map.Entry<Character, Integer>> listEncrypted = mapToList(fillMapWithValues(pathEncrypted));
+        List<Map.Entry<Character, Integer>> listStatistic = mapToList(fillMapWithValues(pathStatistic));
 
         if (listEncrypted.size() <= listStatistic.size()) {
             for (int i = 0; i < listEncrypted.size(); i++) {
                 decrypted.put(listEncrypted.get(i).getKey(), listStatistic.get(i).getKey());
             }
+            try (BufferedReader reader = Files.newBufferedReader(Paths.get(pathEncrypted));
+                 BufferedWriter writer = Files.newBufferedWriter(parsing)) {
+                while (reader.ready()) {
+                    StringBuilder builder = new StringBuilder();
+                    String string = reader.readLine();
+                    for (char encryptedChar : string.toCharArray()) {
+                        Character decryptedChar = decrypted.get(encryptedChar);
+                        builder.append(decryptedChar);
+                    }
+                    writer.write(builder + System.lineSeparator());
+                }
+            }
+            Util.writeMessage("Содержимое файла расшифровано методом статистического анализа." + System.lineSeparator());
         } else {
             Util.writeMessage("Размер файла статистики недостаточен для расшифровки, необходим файл большей длины чем зашифрованный" + System.lineSeparator());
         }
-        try (BufferedReader reader = Files.newBufferedReader(Paths.get(pathEncrypted));
-             BufferedWriter writer = Files.newBufferedWriter(parsing)) {
-            while (reader.ready()) {
-                StringBuilder builder = new StringBuilder();
-                String string = reader.readLine();
-                for (char encryptedChar : string.toCharArray()) {
-                    Character decryptedChar = decrypted.get(encryptedChar);
-                    builder.append(decryptedChar);
-                }
-                writer.write(builder + System.lineSeparator());
-            }
-        }
-        Util.writeMessage("Содержимое файла расшифровано методом статистического анализа." + System.lineSeparator());
     }
 
-    private Map<Character, Integer> fillMapWithValues(Map<Character, Integer> map, String path) throws IOException {
+    private Map<Character, Integer> fillMapWithValues(String path) throws IOException {
+
+        Map<Character, Integer> map = new HashMap<>();
 
         StringBuilder builder = new StringBuilder();
         try (BufferedReader reader = Files.newBufferedReader(Paths.get(path))) {
