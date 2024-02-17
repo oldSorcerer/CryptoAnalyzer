@@ -18,8 +18,8 @@ public class Parsing {
 
         Path dst = Util.buildFileName(src, "_parsing");
 
-        List<Map.Entry<Character, Integer>> listEncrypted = fillMapAndConvertToList(src);
-        List<Map.Entry<Character, Integer>> listStatistic = fillMapAndConvertToList(pathStatistic);
+        List<Map.Entry<Character, Integer>> listEncrypted = convertToList(src);
+        List<Map.Entry<Character, Integer>> listStatistic = convertToList(pathStatistic);
 
         if (listEncrypted.size() <= listStatistic.size()) {
             for (int i = 0; i < listEncrypted.size(); i++) {
@@ -40,7 +40,7 @@ public class Parsing {
     }
 
     @SneakyThrows
-    private List<Map.Entry<Character, Integer>> fillMapAndConvertToList(String path) {
+    private List<Map.Entry<Character, Integer>> convertToList(String path) {
 
         Map<Character, Integer> map = new HashMap<>();
 
