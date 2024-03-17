@@ -20,7 +20,8 @@ public class Parsing {
         List<Map.Entry<Character, Integer>> listStatistic = convertToList(pathStatistic);
 
         if (listEncrypted.size() <= listStatistic.size()) {
-            Map<Character, Character> decrypted = new HashMap<>()
+
+            Map<Character, Character> decrypted = new HashMap<>();
             for (int i = 0; i < listEncrypted.size(); i++) {
                 decrypted.put(listEncrypted.get(i).getKey(), listStatistic.get(i).getKey());
             }
