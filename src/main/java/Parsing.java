@@ -5,8 +5,6 @@ import java.util.*;
 
 public class Parsing {
 
-    private final Map<Character, Character> decrypted = new HashMap<>();
-
     @SneakyThrows
     public void parse()  {
 
@@ -22,21 +20,23 @@ public class Parsing {
         List<Map.Entry<Character, Integer>> listStatistic = convertToList(pathStatistic);
 
         if (listEncrypted.size() <= listStatistic.size()) {
+            Map<Character, Character> decrypted = new HashMap<>()
             for (int i = 0; i < listEncrypted.size(); i++) {
                 decrypted.put(listEncrypted.get(i).getKey(), listStatistic.get(i).getKey());
             }
+
+            String content = Files.readString(Path.of(src));
+            StringBuilder builder = new StringBuilder();
+            for (char encryptedChar : content.toCharArray()) {
+                builder.append(decrypted.get(encryptedChar));
+            }
+            Files.writeString(dst, builder);
+
+            Util.writeMessage("Содержимое файла расшифровано методом статистического анализа." + System.lineSeparator());
+
         } else {
             Util.writeMessage("Размер файла статистики недостаточен для расшифровки, необходим файл большей длины чем зашифрованный" + System.lineSeparator());
         }
-
-        String content = Files.readString(Path.of(src));
-        StringBuilder builder = new StringBuilder();
-        for (char encryptedChar : content.toCharArray()) {
-            builder.append(decrypted.get(encryptedChar));
-        }
-        Files.writeString(dst, builder);
-
-        Util.writeMessage("Содержимое файла расшифровано методом статистического анализа." + System.lineSeparator());
     }
 
     @SneakyThrows
