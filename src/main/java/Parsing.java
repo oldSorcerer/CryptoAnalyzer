@@ -32,7 +32,8 @@ public class Parsing {
                         Character decryptedChar = decrypted.get(encryptedChar);
                         builder.append(decryptedChar);
                     }
-                    writer.write(builder + System.lineSeparator());
+                    writer.write(builder.toString());
+                    writer.newLine();
                 }
             }
             Util.writeMessage("Содержимое файла расшифровано методом статистического анализа." + System.lineSeparator());
