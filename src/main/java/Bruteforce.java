@@ -12,10 +12,10 @@ public class Bruteforce {
 
     public void bruteforce() throws IOException {
 
-        Util.writeMessage("Введите полный путь к файлу, для его расшифровки:");
-        String src = Util.readString();
+        ConsoleHelper.writeMessage("Введите полный путь к файлу, для его расшифровки:");
+        String src = ConsoleHelper.readString();
 
-        Path dst = Util.buildFileName(src, "_bruteforce");
+        Path dst = ConsoleHelper.buildFileName(src, "_bruteforce");
 
         try (BufferedReader reader = Files.newBufferedReader(Path.of(src));
              BufferedWriter writer = Files.newBufferedWriter(dst)) {
@@ -36,7 +36,7 @@ public class Bruteforce {
                         writer.write(str);
                         writer.newLine();
                     }
-                    Util.writeMessage("Содержимое файла расшифровано, методом перебора ключей. Ключ расшифровки K = " + i);
+                    ConsoleHelper.writeMessage("Содержимое файла расшифровано, методом перебора ключей. Ключ расшифровки K = " + i);
                     break;
                 }
             }
@@ -60,16 +60,16 @@ public class Bruteforce {
         while (isValidate) {
             int indexStart = new Random().nextInt(text.length() / 2);
             String substring = text.substring(indexStart, indexStart + (int) Math.sqrt(text.length()));
-            Util.writeMessage(substring + System.lineSeparator() + "Понятен ли вам этот текст? Y/N");
+            ConsoleHelper.writeMessage(substring + System.lineSeparator() + "Понятен ли вам этот текст? Y/N");
 
-            String answer = Util.readString();
+            String answer = ConsoleHelper.readString();
 
             if (answer.equalsIgnoreCase("Y")) {
                 return true;
             } else if (answer.equalsIgnoreCase("N")) {
                 isValidate = false;
             } else {
-                Util.writeMessage("выберете только между Y/N");
+                ConsoleHelper.writeMessage("выберете только между Y/N");
             }
         }
         return false;

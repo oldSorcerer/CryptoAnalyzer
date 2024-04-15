@@ -8,13 +8,13 @@ public class Parsing {
 
     public void parse() throws IOException {
 
-        Util.writeMessage("Введите полный путь к файлу, для его расшифровки:");
-        String pathEncrypted = Util.readString();
+        ConsoleHelper.writeMessage("Введите полный путь к файлу, для его расшифровки:");
+        String pathEncrypted = ConsoleHelper.readString();
 
-        Util.writeMessage("Введите полный путь к файлу, для набора статистики:");
-        String pathStatistic = Util.readString();
+        ConsoleHelper.writeMessage("Введите полный путь к файлу, для набора статистики:");
+        String pathStatistic = ConsoleHelper.readString();
 
-        Path parsing = Util.buildFileName(pathEncrypted, "_parsing");
+        Path parsing = ConsoleHelper.buildFileName(pathEncrypted, "_parsing");
 
         List<Map.Entry<Character, Integer>> listEncrypted = mapToList(fillMapWithValues(pathEncrypted));
         List<Map.Entry<Character, Integer>> listStatistic = mapToList(fillMapWithValues(pathStatistic));
@@ -36,9 +36,9 @@ public class Parsing {
                     writer.newLine();
                 }
             }
-            Util.writeMessage("Содержимое файла расшифровано методом статистического анализа." + System.lineSeparator());
+            ConsoleHelper.writeMessage("Содержимое файла расшифровано методом статистического анализа." + System.lineSeparator());
         } else {
-            Util.writeMessage("Размер файла статистики недостаточен для расшифровки, необходим файл большей длины чем зашифрованный" + System.lineSeparator());
+            ConsoleHelper.writeMessage("Размер файла статистики недостаточен для расшифровки, необходим файл большей длины чем зашифрованный" + System.lineSeparator());
         }
     }
 

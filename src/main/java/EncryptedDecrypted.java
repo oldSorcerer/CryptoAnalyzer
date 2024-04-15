@@ -10,13 +10,13 @@ public class EncryptedDecrypted {
 
     public void encryptedDecrypted(boolean flag) throws IOException {
 
-        Util.writeMessage("Введите путь к файлу для его " + (flag ? "зашифровки" : "расшифровки"));
-        String src = Util.readString();
+        ConsoleHelper.writeMessage("Введите путь к файлу для его " + (flag ? "зашифровки" : "расшифровки"));
+        String src = ConsoleHelper.readString();
 
         System.out.println("Введите ключ:");
-        int key = Util.readInt();
+        int key = ConsoleHelper.readInt();
 
-        Path dst = Util.buildFileName(src, flag ? "_encrypted" : "_decrypted");
+        Path dst = ConsoleHelper.buildFileName(src, flag ? "_encrypted" : "_decrypted");
 
         try (BufferedReader reader = Files.newBufferedReader(Path.of(src));
              BufferedWriter writer = Files.newBufferedWriter(dst)) {
@@ -26,7 +26,7 @@ public class EncryptedDecrypted {
                 writer.write(encryptedDecrypted + System.lineSeparator());
             }
         }
-        Util.writeMessage("Содержимое файла " + dst.getFileName() + (flag ? " зашифровано" : " расшифровано") +
-                          System.lineSeparator());
+        ConsoleHelper.writeMessage("Содержимое файла " + dst.getFileName() + (flag ? " зашифровано" : " расшифровано") +
+                                   System.lineSeparator());
     }
 }
