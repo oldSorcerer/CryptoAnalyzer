@@ -8,13 +8,13 @@ public class Parsing {
     @SneakyThrows
     public void parse()  {
 
-        Util.writeMessage("Введите полный путь к файлу, для его расшифровки:");
-        String src = Util.readString();
+        ConsoleHelper.writeMessage("Введите полный путь к файлу, для его расшифровки:");
+        String src = ConsoleHelper.readString();
 
-        Util.writeMessage("Введите полный путь к файлу, для набора статистики:");
-        String pathStatistic = Util.readString();
+        ConsoleHelper.writeMessage("Введите полный путь к файлу, для набора статистики:");
+        String pathStatistic = ConsoleHelper.readString();
 
-        Path dst = Util.buildFileName(src, "_parsing");
+        Path dst = ConsoleHelper.buildFileName(src, "_parsing");
 
         List<Map.Entry<Character, Integer>> listEncrypted = convertToList(src);
         List<Map.Entry<Character, Integer>> listStatistic = convertToList(pathStatistic);
@@ -33,10 +33,10 @@ public class Parsing {
             }
             Files.writeString(dst, builder);
 
-            Util.writeMessage("Содержимое файла расшифровано методом статистического анализа." + System.lineSeparator());
+            ConsoleHelper.writeMessage("Содержимое файла расшифровано методом статистического анализа." + System.lineSeparator());
 
         } else {
-            Util.writeMessage("Размер файла статистики недостаточен для расшифровки, необходим файл большей длины чем зашифрованный" + System.lineSeparator());
+            ConsoleHelper.writeMessage("Размер файла статистики недостаточен для расшифровки, необходим файл большей длины чем зашифрованный" + System.lineSeparator());
         }
     }
 

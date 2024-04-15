@@ -11,18 +11,18 @@ public class EncryptedDecrypted {
     @SneakyThrows
     public void encryptedDecrypted(boolean flag) {
 
-        Util.writeMessage("Введите путь к файлу для его " + (flag ? "зашифровки" : "расшифровки"));
-        String src = Util.readString();
+        ConsoleHelper.writeMessage("Введите путь к файлу для его " + (flag ? "зашифровки" : "расшифровки"));
+        String src = ConsoleHelper.readString();
 
         System.out.println("Введите ключ:");
-        int key = Util.readInt();
+        int key = ConsoleHelper.readInt();
 
-        Path dst = Util.buildFileName(src, flag ? "_encrypted" : "_decrypted");
+        Path dst = ConsoleHelper.buildFileName(src, flag ? "_encrypted" : "_decrypted");
 
         String content = Files.readString(Path.of(src));
         Files.writeString(dst, flag ? caesar.encrypt(content, key) : caesar.decrypt(content, key));
 
-        Util.writeMessage("Содержимое файла " + dst + (flag ? " зашифровано" : " расшифровано") +
-                System.lineSeparator());
+        ConsoleHelper.writeMessage("Содержимое файла " + dst + (flag ? " зашифровано" : " расшифровано") +
+                                   System.lineSeparator());
     }
 }
