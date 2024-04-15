@@ -12,18 +12,18 @@ public class Bruteforce {
     @SneakyThrows
     public void bruteforce()  {
 
-        Util.writeMessage("Введите полный путь к файлу, для его расшифровки:");
-        String src = Util.readString();
+        ConsoleHelper.writeMessage("Введите полный путь к файлу, для его расшифровки:");
+        String src = ConsoleHelper.readString();
 
-        Path dst = Util.buildFileName(src, "_bruteforce");
+        Path dst = ConsoleHelper.buildFileName(src, "_bruteforce");
 
         String content = Files.readString(Path.of(src));
         for (int i = 0; i < caesar.alphabetLength(); i++) {
             String decrypt = caesar.decrypt(content, i);
             if (isValidateText(decrypt)) {
                 Files.writeString(dst, decrypt);
-                Util.writeMessage("Содержимое расшифровано и сохранено в файл " + dst.getFileName());
-                Util.writeMessage("Ключ расшифровки: " + i + System.lineSeparator());
+                ConsoleHelper.writeMessage("Содержимое расшифровано и сохранено в файл " + dst.getFileName());
+                ConsoleHelper.writeMessage("Ключ расшифровки: " + i + System.lineSeparator());
                 break;
             }
         }
@@ -46,16 +46,16 @@ public class Bruteforce {
         while (isValidate) {
             int indexStart = new Random().nextInt(text.length() / 2);
             String substring = text.substring(indexStart, indexStart + (int) Math.sqrt(text.length()));
-            Util.writeMessage(substring + System.lineSeparator() + "Понятен ли вам этот текст? Y/N");
+            ConsoleHelper.writeMessage(substring + System.lineSeparator() + "Понятен ли вам этот текст? Y/N");
 
-            String answer = Util.readString();
+            String answer = ConsoleHelper.readString();
 
             if (answer.equalsIgnoreCase("Y")) {
                 return true;
             } else if (answer.equalsIgnoreCase("N")) {
                 isValidate = false;
             } else {
-                Util.writeMessage("выберете только между Y/N");
+                ConsoleHelper.writeMessage("выберете только между Y/N");
             }
         }
         return false;

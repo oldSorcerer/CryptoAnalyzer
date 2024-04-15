@@ -8,7 +8,7 @@ import java.io.InputStreamReader;
 import java.nio.file.Path;
 
 @NoArgsConstructor(access = AccessLevel.PRIVATE)
-public class Util {
+public class ConsoleHelper {
 
     private static final BufferedReader CONSOLE = new BufferedReader(new InputStreamReader(System.in));
 
