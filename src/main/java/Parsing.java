@@ -49,5 +49,10 @@ public class Parsing {
             map.merge(aChar, 1, Integer::sum);
         }
         return map.entrySet().stream().sorted(Map.Entry.<Character, Integer>comparingByValue().reversed()).toList();
+        /*
+        *  return Arrays.stream(Files.readString(Path.of(path)).split(""))
+                .collect(Collectors.groupingBy(str -> str, Collectors.counting())).entrySet().stream()
+                .sorted(Map.Entry.<String, Long>comparingByValue().reversed()).toList();
+        * */
     }
 }
