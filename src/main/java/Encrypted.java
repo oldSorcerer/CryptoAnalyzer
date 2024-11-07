@@ -23,7 +23,8 @@ public class Encrypted {
             while (reader.ready()) {
                 String string = reader.readLine();
                 String encryptString = caesarCipher.encrypt(string, key);
-                writer.write(encryptString + System.lineSeparator());
+                writer.write(encryptString);
+                writer.newLine();
             }
         }
         System.out.println("Содержимое файла зашифровано." + System.lineSeparator());
