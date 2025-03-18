@@ -36,3 +36,15 @@ public class ConsoleHelper {
         return parent.resolve(newFileName);
     }
 }
+/*
+* public static Path buildFileName(String path, String suffix) {
+        Path fullName = Path.of(path);
+        String fileName = fullName.getFileName().toString();
+        StringBuilder builder = new StringBuilder(fileName);
+
+        return fullName.getParent().resolve((fileName.lastIndexOf(".") >= 0 ?
+                builder.insert(fileName.lastIndexOf("."), suffix) :
+                builder.append(suffix)).toString());
+*
+*
+* */
