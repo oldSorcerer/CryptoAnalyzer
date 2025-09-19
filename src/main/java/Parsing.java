@@ -54,7 +54,8 @@ public class Parsing {
     private List<Map.Entry<String, Long>> convertToList(String path) {
 
         return Arrays.stream(Files.readString(Path.of(path)).split(""))
-                .collect(Collectors.groupingBy(str -> str, Collectors.counting())).entrySet().stream()
+                .collect(Collectors.groupingBy(str -> str, Collectors.counting()))
+                .entrySet().stream()
                 .sorted(Map.Entry.<String, Long>comparingByValue().reversed())
                 .toList();
 
